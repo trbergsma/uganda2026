@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "uganda-website",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["/tmp/serve-uganda.sh"],
+      "port": 8743
+    }
+  ]
+}

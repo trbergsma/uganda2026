@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uganda 2026 · Familie Bergsma</title>
+<meta name="description" content="21 dagen door de Parel van Afrika, 6–26 juli 2026. Een reisverslag van de familie Bergsma.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,400;9..144,1,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+
+<style>
+:root{
+  --ink:#1C2B22;
+  --paper:#F0EBDE;
+  --paper2:#E8E0CE;
+  --paper3:#DDD4C0;
+  --forest:#1E5C42;
+  --moss:#3D7A5A;
+  --sage:#7DAF8A;
+  --gold:#C68A2E;
+  --roos:#7A5BA6;
+  --clay:#A9492A;
+  --line:rgba(28,43,34,0.14);
+  --shadow:0 1px 0 rgba(28,43,34,0.04),0 12px 32px -20px rgba(28,43,34,0.35);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Inter",system-ui,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 24px;}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.1;}
+p{margin-bottom:1em;}
+p:last-child{margin-bottom:0;}
+a{color:var(--forest);}
+
+.eyebrow{
+  font-family:"Space Mono",monospace;
+  font-size:11.5px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--moss);
+  display:block;
+  margin-bottom:14px;
+}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;overflow:hidden;
+  background:var(--forest);
+  color:#F4EFE3;
+  padding:100px 0 88px;
+}
+.topo{position:absolute;inset:0;opacity:0.45;pointer-events:none;}
+.hero .wrap{position:relative;z-index:2;}
+.hero .eyebrow{color:#A8D9BC;margin-bottom:20px;}
+.hero h1{
+  font-size:clamp(52px,9vw,112px);
+  letter-spacing:-0.025em;
+  font-weight:600;
+  margin-bottom:8px;
+}
+.hero h1 em{font-style:italic;color:var(--gold);font-weight:500;}
+.hero .lede{
+  font-size:clamp(17px,2.2vw,21px);
+  max-width:36ch;
+  color:#DDE8DF;
+  margin-top:20px;
+  line-height:1.55;
+}
+.facts{
+  display:flex;flex-wrap:wrap;gap:32px 48px;
+  margin-top:50px;
+  padding-top:32px;
+  border-top:1px solid rgba(244,239,227,0.18);
+}
+.fact .n{font-family:"Fraunces",serif;font-size:36px;line-height:1;color:#fff;display:block;}
+.fact .l{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:0.15em;text-transform:uppercase;color:#92C5A8;margin-top:7px;display:block;}
+
+/* ─── OVERZICHTSKAART ─── */
+.kaart-sectie{
+  padding:72px 0 80px;
+  background:var(--paper2);
+}
+.kaart-sectie h2{font-size:clamp(26px,3.8vw,40px);margin-bottom:10px;}
+.kaart-sectie .sub{font-size:15.5px;color:#3a4942;max-width:52ch;margin-bottom:30px;}
+#kaart-overzicht{
+  height:480px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.kaart-legenda{
+  display:flex;gap:24px;flex-wrap:wrap;
+  margin-top:16px;
+  font-family:"Space Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.06em;
+  color:#5a6a5f;
+}
+.kaart-legenda span{display:flex;align-items:center;gap:7px;}
+.leg-lijn{display:inline-block;width:20px;height:3px;border-radius:2px;}
+
+/* ─── INTRO ─── */
+.intro-sectie{padding:72px 0 56px;}
+.intro-sectie h2{font-size:clamp(26px,3.6vw,38px);max-width:22ch;margin-bottom:22px;}
+.intro-sectie p{max-width:64ch;color:#34433a;font-size:16.5px;}
+
+/* ─── LOCATIE SECTIES ─── */
+.locatie{
+  padding:72px 0 60px;
+  border-top:2px solid var(--line);
+}
+.locatie.roos-locatie{
+  border-top-color:rgba(122,91,166,0.3);
+}
+
+.loc-header{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:32px;
+}
+.stop-badge{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--forest);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:"Space Mono",monospace;font-size:15px;font-weight:700;
+  flex:none;margin-top:4px;
+  box-shadow:0 2px 8px rgba(30,92,66,0.3);
+}
+.stop-badge.roos{background:var(--roos);box-shadow:0 2px 8px rgba(122,91,166,0.3);}
+.loc-title-area{flex:1;}
+.loc-meta{
+  font-family:"Space Mono",monospace;
+  font-size:12px;
+  color:var(--clay);
+  letter-spacing:0.04em;
+  margin-bottom:6px;
+}
+.loc-title-area h2{font-size:clamp(28px,4vw,44px);margin-bottom:8px;}
+.loc-lodge{font-size:15px;color:#5a6a5f;}
+.loc-lodge strong{color:var(--ink);font-weight:600;}
+.roos-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(122,91,166,0.1);
+  color:var(--roos);
+  border:1px solid rgba(122,91,166,0.22);
+  border-radius:999px;padding:5px 13px;
+  font-family:"Space Mono",monospace;font-size:10.5px;
+  letter-spacing:0.04em;white-space:nowrap;
+  margin-top:10px;
+}
+
+.loc-tekst{max-width:65ch;color:#34433a;font-size:16.5px;margin-bottom:20px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;}
+.chip{
+  font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:0.04em;
+  background:var(--paper2);color:#41523f;border-radius:999px;padding:5px 12px;
+  border:1px solid var(--line);
+}
+.chip.gold{background:rgba(198,138,46,0.14);color:#7d5510;border-color:rgba(198,138,46,0.2);}
+.chip.roos{background:rgba(122,91,166,0.12);color:var(--roos);border-color:rgba(122,91,166,0.18);}
+
+/* ─── DAGBOEK ─── */
+.dagboek-sectie{
+  margin-bottom:44px;
+  padding:28px 32px;
+  background:#FBF7EF;
+  border-radius:14px;
+  border-left:3px solid var(--sage);
+  box-shadow:var(--shadow);
+}
+.dagboek-sectie .eyebrow{color:#5a8a68;margin-bottom:10px;}
+.dagboek-inhoud p{font-size:16.5px;color:#34433a;line-height:1.75;}
+.dagboek-ph{
+  color:#9aaa9f !important;
+  font-style:italic;
+}
+
+/* ─── FOTO'S ─── */
+.fotos-sectie .eyebrow{margin-bottom:14px;}
+.foto-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.foto-grid.drie{grid-template-columns:repeat(3,1fr);}
+.foto-grid.een{grid-template-columns:1fr;}
+
+.foto-placeholder,.foto-slot{border-radius:12px;overflow:hidden;}
+.foto-placeholder{
+  aspect-ratio:4/3;
+  background:var(--paper2);
+  border:2px dashed rgba(28,43,34,0.18);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  color:#aabab0;
+}
+.foto-placeholder .ph-icoon{font-size:28px;opacity:0.5;}
+.foto-placeholder .ph-label{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;}
+.foto-placeholder.groot,.foto-slot.groot{grid-column:1/-1;}
+.foto-slot img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+.foto-slot.groot img{aspect-ratio:16/7;}
+.foto-cap{font-size:13px;color:#6b7a6f;margin:6px 4px 0 !important;font-style:italic;}
+
+/* ─── TRANSFER BLOK ─── */
+.transfer-blok{
+  background:var(--paper3);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.transfer-info{
+  display:flex;align-items:center;gap:12px;
+  padding:18px 0;
+  font-family:"Space Mono",monospace;font-size:12px;
+  color:#6b7a6f;letter-spacing:0.03em;
+  flex-wrap:wrap;
+}
+.transfer-info svg{flex:none;color:#aabab0;}
+.transfer-info strong{color:var(--ink);}
+/* ─── HIGHLIGHTS ─── */
+.highlights{
+  background:var(--ink);color:#EFE9DB;
+  padding:80px 0;margin-top:0;
+}
+.highlights .eyebrow{color:var(--gold);}
+.highlights h2{font-size:clamp(26px,4vw,40px);margin-bottom:36px;max-width:20ch;}
+.hl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.hl-card{
+  border:1px solid rgba(239,233,219,0.13);
+  border-radius:14px;padding:26px 24px;
+  background:rgba(255,255,255,0.025);
+}
+.hl-card .icoon{color:var(--gold);margin-bottom:14px;}
+.hl-card h3{font-size:20px;margin-bottom:8px;color:#fff;}
+.hl-card p{font-size:14.5px;color:#b8c4b0;margin-bottom:12px;}
+.hl-who{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:0.08em;color:var(--sage);text-transform:uppercase;}
+
+/* ─── FOOTER ─── */
+footer{background:var(--forest);color:#D0E4D6;padding:60px 0;text-align:center;}
+footer .slot{font-family:"Fraunces",serif;font-size:28px;font-style:italic;color:#fff;margin-bottom:10px;}
+footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
+
+/* ─── ANIMATIES ─── */
+.fade{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+.fade.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){
+  .fade{opacity:1;transform:none;transition:none;}
+  html{scroll-behavior:auto;}
+}
+
+/* ─── LEAFLET TWEAKS ─── */
+.leaflet-container{font-family:"Inter",sans-serif;}
+.leaflet-popup-content-wrapper{border-radius:10px;box-shadow:0 4px 16px -4px rgba(0,0,0,0.18);}
+.leaflet-popup-content{font-size:13.5px;font-family:"Space Mono",monospace;letter-spacing:0.02em;}
+
+/* ─── LODGE KAART ─── */
+.lodge-kaart.lodge-highlight{
+  border-color:var(--gold);
+  background:rgba(198,138,46,0.04);
+}
+.lodge-kaart.lodge-highlight:hover{border-color:var(--clay);background:rgba(198,138,46,0.08);}
+.lodge-kaart.lodge-highlight .lodge-naam{color:var(--clay);}
+.lodge-badge{
+  display:inline-block;
+  font-family:"Space Mono",monospace;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;
+  background:rgba(198,138,46,0.12);color:var(--gold);border-radius:999px;padding:2px 8px;margin-bottom:6px;
+}
+.lodge-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0;}
+.lodge-kaart{
+  display:flex;flex-direction:column;
+  padding:0;overflow:hidden;
+  background:#FBF8F0;border:1px solid var(--line);
+  border-radius:12px;text-decoration:none;color:inherit;
+  max-width:600px;margin:0 auto 12px;
+  transition:border-color .15s,background .15s;
+  box-shadow:var(--shadow);
+}
+.lodge-grid .lodge-kaart{margin-bottom:0;}
+.lodge-kaart:hover{border-color:var(--moss);}
+.lodge-thumb{
+  position:relative;
+  width:100%;aspect-ratio:3/2;flex:none;
+  overflow:hidden;border-radius:0;
+  background:var(--paper2);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+.lodge-thumb svg{opacity:0.25;flex:none;width:48px;height:48px;}
+.lodge-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.lodge-info{padding:14px 16px;display:flex;flex-direction:column;}
+.lodge-naam{display:block;font-weight:600;font-size:14.5px;color:var(--forest);margin-bottom:2px;}
+.lodge-domain{display:block;font-family:"Space Mono",monospace;font-size:10px;color:#9aaa9f;margin-bottom:4px;}
+.lodge-desc{display:block;font-size:12.5px;color:#5a6a5f;line-height:1.4;}
+
+/* ─── CHAPTER MAPS ─── */
+.chapter-map{
+  height:280px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+@keyframes pulse-ring{
+  0%{transform:translate(-50%,-50%) scale(0.5);opacity:0.85;}
+  100%{transform:translate(-50%,-50%) scale(2.8);opacity:0;}
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:620px){
+  .lodge-grid{grid-template-columns:1fr;}
+  .loc-header{flex-wrap:wrap;}
+  .foto-grid{grid-template-columns:1fr 1fr;}
+  .foto-grid.drie{grid-template-columns:1fr 1fr;}
+  .facts{gap:22px 36px;}
+  .fact .n{font-size:30px;}
+  .hero{padding:72px 0 64px;}
+  .kaart-sectie{padding:52px 0 60px;}
+  #kaart-overzicht{height:320px;}
+}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px;}
+
+/* ─── STICKY NAV ─── */
+.sticky-nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(28,43,34,0.96);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  transform:translateY(-100%);transition:transform .3s ease;
+}
+.sticky-nav.zichtbaar{transform:translateY(0);}
+.sticky-nav-links{
+  display:flex;align-items:center;gap:4px;height:46px;
+  padding:0 24px;max-width:940px;margin:0 auto;
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+}
+.sticky-nav-links::-webkit-scrollbar{display:none;}
+.nav-link{
+  font-family:"Space Mono",monospace;font-size:10.5px;
+  letter-spacing:0.06em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);text-decoration:none;
+  padding:5px 10px;border-radius:5px;white-space:nowrap;
+  transition:color .15s,background .15s;
+}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.1);}
+.nav-link.actief{color:var(--gold);}
+
+/* ─── TERUG NAAR BOVEN ─── */
+.back-to-top{
+  position:fixed;bottom:28px;right:28px;z-index:199;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--forest);color:#fff;
+  border:2px solid rgba(255,255,255,0.15);
+  cursor:pointer;font-size:20px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .25s,transform .25s,background .15s;
+  box-shadow:0 4px 16px rgba(28,43,34,0.35);
+}
+.back-to-top.zichtbaar{opacity:1;transform:none;}
+.back-to-top:hover{background:var(--moss);}
+
+/* ─── DAGBOEK GEVULD ─── */
+.dagboek-sectie.dagboek-gevuld{
+  border-left-color:var(--forest);
+  background:#EAF5EC;
+}
+.dagboek-sectie.dagboek-gevuld .eyebrow::after{
+  content:' ✓';color:var(--forest);
+}
+
+/* ─── FOTO BIJSCHRIFT ─── */
+.foto-cap{
+  font-size:13px;color:#6b7a6f;
+  margin:6px 4px 0 !important;
+  font-style:italic;line-height:1.4;
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav" id="sticky-nav" aria-label="Bestemmingen">
+  <div class="sticky-nav-links">
+    <a href="#kampala"        class="nav-link">1 · Kampala</a>
+    <a href="#fortportal"     class="nav-link">2 · Fort Portal</a>
+    <a href="#queenelizabeth" class="nav-link">3 · Queen Elizabeth</a>
+    <a href="#bwindi"         class="nav-link">4 · Bwindi</a>
+    <a href="#bunyonyi"       class="nav-link">5 · Lake Bunyonyi</a>
+    <a href="#mburo"          class="nav-link">6 · Lake Mburo</a>
+    <a href="#entebbe"        class="nav-link">7 · Entebbe</a>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<header class="hero">
+  <svg class="topo" viewBox="0 0 940 540" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#4A8A62" stroke-width="1.3" opacity="0.6">
+      <path d="M-60 100 Q 200 30 480 110 T 1020 70"/>
+      <path d="M-60 160 Q 220 90 490 162 T 1020 130"/>
+      <path d="M-60 230 Q 240 155 495 232 T 1020 200"/>
+      <path d="M-60 305 Q 210 240 490 305 T 1020 278"/>
+      <path d="M-60 385 Q 230 315 492 385 T 1020 360"/>
+      <path d="M-60 465 Q 210 400 488 464 T 1020 442"/>
+    </g>
+    <g fill="none" stroke="#C68A2E" stroke-width="1.5" opacity="0.35">
+      <path d="M-60 190 Q 300 115 530 192 T 1020 165"/>
+      <path d="M-60 340 Q 280 278 530 342 T 1020 318"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">De Parel van Afrika · 6–26 juli 2026</p>
+    <h1>Uganda &#127482;&#127468;<br><em>2026</em></h1>
+    <p class="lede">Eenentwintig dagen door groene heuvels, kratermeren, oerwouden en savannes — met het gezin en deels met Roos, Yuri en Zaja.</p>
+    <div class="facts">
+      <div class="fact"><span class="n">21</span><span class="l">dagen onderweg</span></div>
+      <div class="fact"><span class="n">7</span><span class="l">bestemmingen</span></div>
+      <div class="fact"><span class="n">4</span><span class="l">reizigers</span></div>
+      <div class="fact"><span class="n">6</span><span class="l">trekkings &amp; safari's</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════ OVERZICHTSKAART ═══════ -->
+<section class="kaart-sectie">
+  <div class="wrap">
+    <p class="eyebrow fade">De route in beeld</p>
+    <h2 class="fade">1.129 km door Uganda</h2>
+    <p class="sub fade">Een grote lus door het westen — in eigen tempo, met een terreinwagen.</p>
+    <div id="kaart-overzicht" class="fade"></div>
+    <div class="kaart-legenda fade">
+      <span><span class="leg-lijn" style="background:var(--forest)"></span>eigen route</span>
+      <span><span class="leg-lijn" style="background:var(--roos)"></span>met Roos, Yuri &amp; Zaja</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ INTRO ═══════ -->
+<section class="intro-sectie">
+  <div class="wrap">
+    <h2 class="fade">Van Kampala tot de gorilla's van Bwindi.</h2>
+    <p class="fade">Deze reis zoekt de balans tussen avontuur en rust. We beginnen bij Roos thuis in Kampala om bij te komen van de vlucht en in het ritme te komen. Daarna rijden we stap voor stap naar het westen, opbouwend naar de hoogtepunten: drie chimps- en gorilla-trekkings, drie safari's in de parken, en overal onderweg de mensen die deze reis bijzonder maken. De stukken met Roos, Yuri en Zaja zijn gemarkeerd in paars.</p>
+    <p class="fade">Hieronder volgt de hele route, etappe voor etappe. Foto's en verhalen worden na (of tijdens) de reis toegevoegd.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     STOP 1 — KAMPALA
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="kampala">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-1"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">1</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">6 – 11 juli · 5 nachten</p>
+        <h2>Kampala</h2>
+        <p class="loc-lodge">Bij <strong>Roos, Yuri &amp; Zaja</strong> thuis · Younger Avenue 7</p>
+        <span class="roos-badge">&#9679; met Roos &amp; Yuri</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Na een nacht vliegen landen we midden in het bruisende, groene Kampala. Rommelig, levendig en meteen vol kleur. De eerste uren zijn voor bijkomen. De hitte, het lawaai, de energie die je tegemoet komt zodra je de aankomsthal uit stapt.</p>
+      <p>In april zagen we Roos nog in de Ardennen. Koude lucht, wandelen door beukenbossen, een klein huisje ergens aan de rand van het plateau. Nu staan we voor hun huis in Kampala, en de wereld kan niet verder van de Ardennen verwijderd zijn. Dit is waar Roos en Yuri voor hebben gekozen. Dit is hun leven.</p>
+      <p>Ze hebben hier een fijn thuis gevonden. Het huis is van de moeder van Yuri, maar voor Roos en Yuri voelt het als het hunne — en dat merk je. Drie hondjes die uitbundig blaffen bij de poort, de officiële verwelkomingscommissie. Zaja trekt meteen aan Rosalie en Zeline om hun alles te laten zien. Haar huis, haar kamer, haar honden. Ze wil dat ze begrijpen hoe haar leven eruitziet.</p>
+      <p>Voor ons is er een eigen cabin naast het huis gereserveerd. Een eigen plek, vlak naast de drukte maar net even apart.</p>
+      <p>Vijf nachten de tijd om langzaam in het ritme te komen, samen te eten, bij te praten en de stad op eigen tempo te ontdekken. Kampala als eerste bladzijde van een reis die nog lang niet af is.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">met Roos &amp; Yuri &amp; Zaja</span>
+      <span class="chip">acclimatiseren</span>
+      <span class="chip">stadsleven</span>
+      <span class="chip">rust</span>
+    </div>
+
+    <!-- DAGBOEK: kampala -->
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p class="dagboek-ph">Jouw eerste indrukken van Kampala... De landing na een nacht vliegen, het huis van Roos en Yuri, de eerste avond samen. Hoe voelde het om eindelijk te zijn waar je zo lang naartoe hebt geleefd? Schrijf het hier op — voor jezelf, voor later.</p>
+      </div>
+    </div>
+
+    <div class="fotos-sectie fade">
+      <p class="eyebrow">Foto's</p>
+      <div class="foto-grid een">
+        <div class="foto-placeholder groot">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Aankomst foto</span>
+          <!-- foto: fotos/kampala/aankomst.jpg -->
+        </div>
+      </div>
+      <div class="foto-grid" style="margin-top:12px">
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Kampala</span>
+          <!-- foto: fotos/kampala/stad.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Met Roos &amp; Zaja</span>
+          <!-- foto: fotos/kampala/roos.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Kinderen</span>
+          <!-- foto: fotos/kampala/kinderen.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/kampala/extra.jpg -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 1: Kampala → Fort Portal ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Kampala → Fort Portal</strong>
+      <span>11 juli · ±300 km · 5–6 uur via A109</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 2 — FORT PORTAL & KIBALE
+══════════════════════════════════════════════ -->
+<section class="locatie" id="fortportal">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-2"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge">2</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">11 – 14 juli · 3 nachten</p>
+        <h2>Fort Portal &amp; Kibale</h2>
+        <p class="loc-lodge"><strong>Ndali Lodge</strong> · boven de kratermeren</p>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Ndali Lodge ligt prachtig op de rand van de kraterlandschappen ten zuiden van Fort Portal, met uitzicht over de helderblauwe meren die zich in de oude vulkaanmond hebben gevuld. Na de rit van vijf uur vanuit Kampala is de rust hier voelbaar.</p>
+      <p>Op 12 juli trekken Timothy en Rosalie samen het regenwoud van Kibale in op zoek naar chimpansees — de Ngogo-gemeenschap behoort tot de grootste en best bestudeerde ter wereld. Odette en Zeline genieten van de lodge en de omgeving.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip gold">&#9733; chimptrekking Kibale · 12 jul</span>
+      <span class="chip">Timothy + Rosalie</span>
+      <span class="chip">kratermeren</span>
+      <span class="chip">natuur</span>
+    </div>
+
+    <!-- DAGBOEK: fortportal -->
+    <a class="lodge-kaart fade" href="https://www.ndalilodge.co.ug/" target="_blank" rel="noopener">
+      <div class="lodge-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <img src="fotos/lodges/ndali.jpg" alt="Ndali Lodge — kratermeren Fort Portal">
+      </div>
+      <div class="lodge-info">
+        <span class="lodge-naam">Ndali Lodge ↗</span>
+        <span class="lodge-domain">ndalilodge.co.ug</span>
+        <span class="lodge-desc">Op de rand van een vulkaankrater met uitzicht over Lake Nyinambuga en de Rwenzori's.</span>
+      </div>
+    </a>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p class="dagboek-ph">De rit van vijf uur naar het westen, de eerste blik op de kratermeren, Ndali Lodge... En de chimptrekking met Rosalie: hoe was het om samen het oerwoud in te trekken? Wat hoorden en zagen jullie? Schrijf het hier op voor het vergaat.</p>
+      </div>
+    </div>
+
+    <div class="fotos-sectie fade">
+      <p class="eyebrow">Foto's</p>
+      <div class="foto-grid een">
+        <div class="foto-placeholder groot">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Chimptrekking Kibale</span>
+          <!-- foto: fotos/fortportal/chimp.jpg -->
+        </div>
+      </div>
+      <div class="foto-grid" style="margin-top:12px">
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Ndali Lodge</span>
+          <!-- foto: fotos/fortportal/lodge.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Kratermeren</span>
+          <!-- foto: fotos/fortportal/kratermeer.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/fortportal/extra.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/fortportal/extra2.jpg -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 2: Fort Portal → Queen Elizabeth NP ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Fort Portal → Queen Elizabeth NP</strong>
+      <span>14 juli · ±120 km · 3 uur · Roos sluit aan</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 3 — QUEEN ELIZABETH NP
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="queenelizabeth">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-3"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">3</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">14 – 18 juli · 4 nachten</p>
+        <h2>Queen Elizabeth NP</h2>
+        <p class="loc-lodge"><strong>Katara Lodge</strong> (noord, 2n) · <strong>Embogo Lodge</strong> Ishasha (2n)</p>
+        <span class="roos-badge">&#9679; met Roos &amp; Yuri</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Het grote safarihart van de reis. Roos en Yuri rijden vanuit Kampala en sluiten hier aan. De eerste twee nachten zijn in Katara Lodge bij het noorden van het park, voor wildlife op de vlaktes en een boottocht op het Kazinga Kanaal langs nijlpaarden, krokodillen en honderden watervogels.</p>
+      <p>Na twee dagen verhuizen we naar de Ishasha-sector in het zuiden, beroemd om de enige leeuwen in Afrika die in vijgenbomen klimmen. Op 16 juli trekken Odette, Timothy en Roos samen het Kyambura-ravijn in voor een tweede chimptrekking — Yuri past die dag op Rosalie, Zeline en Zaja. Een volle en indrukwekkende vier dagen.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">met Roos &amp; Yuri</span>
+      <span class="chip gold">&#9733; klimmende leeuwen Ishasha</span>
+      <span class="chip gold">&#9733; chimptrekking Kyambura · 16 jul</span>
+      <span class="chip">Odette + Timothy + Roos</span>
+      <span class="chip">Yuri past op kinderen</span>
+      <span class="chip gold">&#9733; game drive noordsector</span>
+      <span class="chip gold">&#9733; boottocht Kazinga</span>
+      <span class="chip">nijlpaarden &amp; olifanten</span>
+    </div>
+
+    <!-- DAGBOEK: queenelizabeth -->
+    <a class="lodge-kaart lodge-highlight fade" href="https://kataralodge.com/" target="_blank" rel="noopener">
+      <div class="lodge-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <img src="fotos/lodges/katara.jpg" alt="Katara Lodge — Grote Riftvallei, Lake Edward">
+      </div>
+      <div class="lodge-info">
+        <span class="lodge-badge">&#9733; uitgelicht</span>
+        <span class="lodge-naam">Katara Lodge ↗</span>
+        <span class="lodge-domain">kataralodge.com</span>
+        <span class="lodge-desc">Op de rand van de Grote Riftvallei met ononderbroken uitzicht over de savanne, Lake Edward en de Virunga's. Een van de mooiste plekken van de hele reis.</span>
+      </div>
+    </a>
+    <a class="lodge-kaart fade" href="https://embogolodgesuganda.org/" target="_blank" rel="noopener">
+      <div class="lodge-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <img src="fotos/lodges/embogo.jpg" alt="Embogo Lodge — Ishasha, klimmende leeuwen" style="object-position:50% 75%">
+      </div>
+      <div class="lodge-info">
+        <span class="lodge-naam">Embogo Lodge ↗</span>
+        <span class="lodge-domain">embogolodgesuganda.org</span>
+        <span class="lodge-desc">1 km van de Ishasha Gate, midden in het territorium van de klimmende leeuwen.</span>
+      </div>
+    </a>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p class="dagboek-ph">Vier volle safari-dagen. De boottocht, de olifanten en buffels op de vlaktes, het moment waarop jullie de leeuwen hoog in de vijgenboom spotten in Ishasha... Hoe was de hereniging met Roos en Yuri? Schrijf het hier op, het zijn de momenten die je voor altijd bijblijven.</p>
+      </div>
+    </div>
+
+    <div class="fotos-sectie fade">
+      <p class="eyebrow">Foto's</p>
+      <div class="foto-grid een">
+        <div class="foto-placeholder groot">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Klimmende leeuwen Ishasha</span>
+          <!-- foto: fotos/queenelizabeth/leeuwen.jpg -->
+        </div>
+      </div>
+      <div class="foto-grid" style="margin-top:12px">
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Safari QENP</span>
+          <!-- foto: fotos/queenelizabeth/safari.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Boottocht Kazinga</span>
+          <!-- foto: fotos/queenelizabeth/boot.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Katara Lodge</span>
+          <!-- foto: fotos/queenelizabeth/katara.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/queenelizabeth/extra1.jpg -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 3: Queen Elizabeth → Bwindi ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Ishasha → Bwindi</strong>
+      <span>18 juli · ±200 km · 4–5 uur · bergachtig</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 4 — BWINDI
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="bwindi">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-4"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">4</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">18 – 20 juli · 2 nachten</p>
+        <h2>Bwindi</h2>
+        <p class="loc-lodge"><strong>Agandi Lodge</strong> · Silverback Cottage · aan de rand van het oerwoud</p>
+        <span class="roos-badge">&#9679; met Roos &amp; Yuri</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Het absolute zwaartepunt van de reis. Het Bwindi Impenetrable Forest herbergt bijna de helft van alle nog levende berggorilla's op aarde. Op 19 juli trekken Odette, Timothy en Yuri te voet het oerwoud in voor een ontmoeting met een gorillafamilie — een uur lang, oog in oog. Een van de meest bijzondere ervaringen in de wereld.</p>
+      <p>Rosalie en Zeline brengen de dag door bij Roos, in het gezelschap van de lodge en de groene wereld rondom. De Silverback Cottage van Agandi Lodge ligt direct aan de bosrand.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">met Roos &amp; Yuri</span>
+      <span class="chip gold">&#9733; gorilla-trekking · 19 jul</span>
+      <span class="chip">Odette + Timothy + Yuri</span>
+      <span class="chip">oerwoud</span>
+      <span class="chip">berggorilla's</span>
+    </div>
+
+    <!-- DAGBOEK: bwindi -->
+    <a class="lodge-kaart fade" href="https://www.agandiuganda.com/" target="_blank" rel="noopener">
+      <div class="lodge-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <img src="fotos/lodges/agandi.jpg" alt="Agandi Lodge — bosrand Bwindi oerwoud">
+      </div>
+      <div class="lodge-info">
+        <span class="lodge-naam">Agandi Lodge ↗</span>
+        <span class="lodge-domain">agandiuganda.com</span>
+        <span class="lodge-desc">Eco-lodge op 2.300 m met 360° panorama over het oerwoud en de vulkaanketen.</span>
+      </div>
+    </a>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p class="dagboek-ph">De gorilla-trekking. Schrijf dit op terwijl het nog vers is. Hoe was de rit naar de bosrand, hoe lang duurde het lopen, het moment dat je ze voor het eerst zag — die blik, die grootte, die rust. Hoe voelde het uur dat jullie bij de familie doorbrachten? Dit is het verhaal dat je wilt bewaren.</p>
+      </div>
+    </div>
+
+    <div class="fotos-sectie fade">
+      <p class="eyebrow">Foto's</p>
+      <div class="foto-grid een">
+        <div class="foto-placeholder groot">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">De gorilla's — het moment</span>
+          <!-- foto: fotos/bwindi/gorilla.jpg -->
+        </div>
+      </div>
+      <div class="foto-grid" style="margin-top:12px">
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Bwindi oerwoud</span>
+          <!-- foto: fotos/bwindi/oerwoud.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Agandi Lodge</span>
+          <!-- foto: fotos/bwindi/lodge.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/bwindi/extra.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/bwindi/extra2.jpg -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 4: Bwindi → Lake Bunyonyi ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Bwindi → Lake Bunyonyi</strong>
+      <span>20 juli · korte rit · ±45 min</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 5 — LAKE BUNYONYI
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="bunyonyi">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-5"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">5</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">20 – 23 juli · 3 nachten</p>
+        <h2>Lake Bunyonyi</h2>
+        <p class="loc-lodge"><strong>Sharp Island Lodge</strong> · op een eiland in het meer</p>
+        <span class="roos-badge">&#9679; Roos neemt afscheid op 23 jul</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Na de intensiteit van de trekkings een welverdiende adempauze. Lake Bunyonyi is een van de mooiste meren van Uganda, bezaaid met kleine eilandjes die als groene bollen uit het water steken. Sharp Island Lodge ligt op een van die eilandjes — je komt er alleen per kano.</p>
+      <p>Drie nachten zwemmen, kanoën, lezen en niets moeten. Op 23 juli neemt Roos afscheid hier en rijden wij de laatste lus in.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">Roos neemt afscheid op 23 jul</span>
+      <span class="chip">eiland</span>
+      <span class="chip">kanoën</span>
+      <span class="chip">rust</span>
+      <span class="chip">zwemmen</span>
+    </div>
+
+    <!-- DAGBOEK: bunyonyi -->
+    <a class="lodge-kaart fade" href="https://www.sharpislandlodge.com/" target="_blank" rel="noopener">
+      <div class="lodge-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <img src="fotos/lodges/sharpislodge.jpg" alt="Sharp Island Lodge — eiland in Lake Bunyonyi">
+      </div>
+      <div class="lodge-info">
+        <span class="lodge-naam">Sharp Island Lodge ↗</span>
+        <span class="lodge-domain">sharpislandlodge.com</span>
+        <span class="lodge-desc">Een privé-eiland op Lake Bunyonyi, een botanische tuin omgeven door water.</span>
+      </div>
+    </a>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p class="dagboek-ph">Het eilandleven, de rust na alle avonturen, de kinderen in het water... En het afscheid van Roos op de ochtend van de 23e. Hoe voelde het om de groep kleiner te zien worden? Wat hebben jullie de laatste avond samen gedaan?</p>
+      </div>
+    </div>
+
+    <div class="fotos-sectie fade">
+      <p class="eyebrow">Foto's</p>
+      <div class="foto-grid een">
+        <div class="foto-placeholder groot">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Lake Bunyonyi</span>
+          <!-- foto: fotos/bunyonyi/meer.jpg -->
+        </div>
+      </div>
+      <div class="foto-grid" style="margin-top:12px">
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Sharp Island Lodge</span>
+          <!-- foto: fotos/bunyonyi/lodge.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Kanoën</span>
+          <!-- foto: fotos/bunyonyi/kano.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Afscheid van Roos</span>
+          <!-- foto: fotos/bunyonyi/roos_afscheid.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/bunyonyi/extra.jpg -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 5: Lake Bunyonyi → Lake Mburo ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Lake Bunyonyi → Lake Mburo</strong>
+      <span>23 juli · ±210 km · 5 uur · zwaarste rijdag</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 6 — LAKE MBURO
+══════════════════════════════════════════════ -->
+<section class="locatie" id="mburo">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-6"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge">6</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">23 – 25 juli · 2 nachten</p>
+        <h2>Lake Mburo</h2>
+        <p class="loc-lodge"><strong>Hyena Hill Lodge</strong></p>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Het kleinste savannepark van de route, en juist daarom intiem. Lake Mburo heeft geen olifanten of grote roofdieren overdag — wel zebra's, impala's, kob en nijlpaarden in het meer. Omdat er geen grote predatoren rondtrekken is een wandelsafari hier mogelijk, een heel andere ervaring dan vanuit de auto.</p>
+      <p>En dan is er de nachtsafari. Als de zon onder is verandert het park: luipaarden en servals worden actief zodra de duisternis valt. Een van de weinige plekken in Oost-Afrika waar je een échte kans maakt op een luipaard in het wild.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip gold">&#9733; nachtsafari · luipaard</span>
+      <span class="chip gold">&#9733; wandelsafari</span>
+      <span class="chip">zebra's &amp; impala's</span>
+      <span class="chip">nijlpaarden</span>
+      <span class="chip">rust</span>
+    </div>
+
+    <!-- DAGBOEK: mburo -->
+    <a class="lodge-kaart fade" href="https://www.hyenahilllodge.com/" target="_blank" rel="noopener">
+      <div class="lodge-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <img src="fotos/lodges/hyenahill.jpg" alt="Hyena Hill Lodge — Lake Mburo National Park">
+      </div>
+      <div class="lodge-info">
+        <span class="lodge-naam">Hyena Hill Lodge ↗</span>
+        <span class="lodge-domain">hyenahilllodge.com</span>
+        <span class="lodge-desc">Aan de rand van het park bij Sanga Gate, uitzicht over Lake Mburo National Park.</span>
+      </div>
+    </a>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p class="dagboek-ph">De zwaarste rijdag achter de rug, en dan dit rustpunt. De wandelsafari, de zebra's die je bijna aan kunt raken, de sfeer van de laatste parkdagen... En de nachtsafari: het park bij donker, met een spotlight, op zoek naar een luipaard. Hebben jullie hem gevonden?</p>
+      </div>
+    </div>
+
+    <div class="fotos-sectie fade">
+      <p class="eyebrow">Foto's</p>
+      <div class="foto-grid een">
+        <div class="foto-placeholder groot">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Zebra's Lake Mburo</span>
+          <!-- foto: fotos/mburo/zebras.jpg -->
+        </div>
+      </div>
+      <div class="foto-grid" style="margin-top:12px">
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Wandelsafari</span>
+          <!-- foto: fotos/mburo/wandel.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Nachtsafari · luipaard</span>
+          <!-- foto: fotos/mburo/nacht.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/mburo/extra.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/mburo/extra2.jpg -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 6: Lake Mburo → Entebbe ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Lake Mburo → Entebbe</strong>
+      <span>25 juli · ±215 km · 5 uur · laatste rit</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 7 — ENTEBBE
+══════════════════════════════════════════════ -->
+<section class="locatie" id="entebbe">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-7"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge">7</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">25 – 26 juli · 1 nacht</p>
+        <h2>Entebbe</h2>
+        <p class="loc-lodge"><strong>Hotel Horizon</strong> · aan het Victoriameer · vlak bij de luchthaven</p>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>De zachte landing aan het einde van 21 dagen. Entebbe ligt rustig aan de oever van het Victoriameer, weg van de drukte van Kampala. Tijd om de koffers te pakken, te reflecteren en dicht bij de luchthaven te overnachten voor de terugreis via Nairobi.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip">Victoriameer</span>
+      <span class="chip">terugvlucht 26 jul</span>
+      <span class="chip">KLM via Nairobi</span>
+    </div>
+
+    <!-- DAGBOEK: entebbe -->
+    <a class="lodge-kaart fade" href="https://hotelhorizonug.com/" target="_blank" rel="noopener">
+      <div class="lodge-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <img src="fotos/lodges/horizon.jpg" alt="Hotel Horizon — Victoriameer Entebbe">
+      </div>
+      <div class="lodge-info">
+        <span class="lodge-naam">Hotel Horizon ↗</span>
+        <span class="lodge-domain">hotelhorizonug.com</span>
+        <span class="lodge-desc">Boutique hotel in Entebbe, 5 km van de luchthaven, met rooftop terrace en Victoriameer view.</span>
+      </div>
+    </a>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p class="dagboek-ph">De laatste nacht in Uganda. Wat neem je mee? Wat heeft je het meest geraakt? De gorilla's, de chimpansees, de leeuwen in de boom, de kinderen in het meer van Bunyonyi, de avonden met Roos en Yuri... Schrijf het op. Voor de kinderen later, voor jezelf nu.</p>
+      </div>
+    </div>
+
+    <div class="fotos-sectie fade">
+      <p class="eyebrow">Foto's</p>
+      <div class="foto-grid een">
+        <div class="foto-placeholder groot">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Victoriameer · laatste avond</span>
+          <!-- foto: fotos/entebbe/victoriameer.jpg -->
+        </div>
+      </div>
+      <div class="foto-grid" style="margin-top:12px">
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/entebbe/extra.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/entebbe/extra2.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/entebbe/extra3.jpg -->
+        </div>
+        <div class="foto-placeholder">
+          <span class="ph-icoon">📷</span>
+          <span class="ph-label">Foto toevoegen</span>
+          <!-- foto: fotos/entebbe/extra4.jpg -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ HIGHLIGHTS ═══════ -->
+<section class="highlights">
+  <div class="wrap">
+    <p class="eyebrow fade">De hoogtepunten</p>
+    <h2 class="fade">Zes hoogtepunten die de reis definiëren</h2>
+    <div class="hl-grid">
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><path d="M22 20c0-2.2-2.2-4-5-4"/></svg>
+        </div>
+        <h3>Roos, Yuri &amp; Zaja</h3>
+        <p>De hereniging met Roos en haar gezin in Kampala, en weken samen reizen door het land dat zij thuis noemen.</p>
+        <p class="hl-who">6 jul · Kampala · QENP · Bwindi · Bunyonyi</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01"/><path d="M9 15c1 1 5 1 6 0"/></svg>
+        </div>
+        <h3>Chimpansees · Kibale</h3>
+        <p>12 juli. Door het dichte regenwoud op zoek naar onze naaste verwanten, de Ngogo-gemeenschap hoog in de boomtoppen.</p>
+        <p class="hl-who">Timothy · Rosalie</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01"/><path d="M8 15c1.5 1.5 6.5 1.5 8 0"/></svg>
+        </div>
+        <h3>Chimpansees · Kyambura</h3>
+        <p>16 juli. In het dramatische ravijn van Kyambura, dwars door Queen Elizabeth NP, voor de tweede ontmoeting met chimpansees.</p>
+        <p class="hl-who">Odette · Timothy · Roos</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18c3-2 5-5 5-8 0-2 1-3 4-3s4 1 4 3c0 3 2 6 5 8"/><path d="M8 10c0-2-2-3-4-3M16 10c0-2 2-3 4-3"/></svg>
+        </div>
+        <h3>Klimmende leeuwen · Ishasha</h3>
+        <p>16–18 juli. De beroemde leeuwen van de Ishasha-sector die liggen te rusten in de hoge takken van vijgenbomen.</p>
+        <p class="hl-who">De hele groep</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="13" r="6"/><circle cx="9.5" cy="12" r="1" fill="currentColor"/><circle cx="14.5" cy="12" r="1" fill="currentColor"/><path d="M7 7c-1.5-1-2.5-.5-2.5 1M17 7c1.5-1 2.5-.5 2.5 1"/></svg>
+        </div>
+        <h3>Berggorilla's · Bwindi</h3>
+        <p>19 juli. Te voet het oerwoud in voor een uur bij een gorillafamilie — een van de meest bijzondere wildervaringen op aarde.</p>
+        <p class="hl-who">Odette · Timothy · Yuri</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/><circle cx="17" cy="8" r="1" fill="currentColor"/><circle cx="19.5" cy="5" r="0.8" fill="currentColor"/></svg>
+        </div>
+        <h3>Nachtsafari · Lake Mburo</h3>
+        <p>2–3 uur door het donkere park vanaf 19:00, op zoek naar luipaarden, bush babies en stekelvarken die in de nacht ontwaken.</p>
+        <p class="hl-who">Het hele gezin · 23 of 24 jul</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="wrap">
+    <p class="slot">Tot ziens, Uganda &#127482;&#127468;</p>
+    <p>Reisverslag familie Bergsma · 6–26 juli 2026 · De Parel van Afrika</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+
+  if (typeof L === 'undefined') {
+    console.warn('Leaflet niet geladen — kaarten worden overgeslagen');
+    return;
+  }
+
+  var STOPS = [
+    {n:'Kampala',            lat:0.3476,  lng:32.5825, roos:true,  d:'6\u201311 jul',  l:'Bij Roos, Yuri & Zaja thuis'},
+    {n:'Fort Portal',        lat:0.6636,  lng:30.2733, roos:false, d:'11\u201314 jul', l:'Ndali Lodge'},
+    {n:'Queen Elizabeth NP', lat:-0.0500, lng:29.9500, roos:true,  d:'14\u201318 jul', l:'Katara Lodge + Embogo Lodge'},
+    {n:'Bwindi',             lat:-1.0366, lng:29.7035, roos:true,  d:'18\u201320 jul', l:'Agandi Lodge'},
+    {n:'Lake Bunyonyi',      lat:-1.2761, lng:29.9044, roos:true,  d:'20\u201323 jul', l:'Sharp Island Lodge'},
+    {n:'Lake Mburo',         lat:-0.6128, lng:30.9452, roos:false, d:'23\u201325 jul', l:'Hyena Hill Lodge'},
+    {n:'Entebbe',            lat:0.0512,  lng:32.4637, roos:false, d:'25\u201326 jul', l:'Hotel Horizon'}
+  ];
+
+  var FB = [
+    {roos:false, c:[[0.3476,32.5825],[0.38,32.05],[0.50,31.35],[0.63,30.78],[0.6636,30.2733],[0.55,30.15],[0.28,30.05],[-0.05,29.95]]},
+    {roos:true,  c:[[-0.05,29.95],[-0.18,29.88],[-0.40,29.76],[-0.52,29.65],[-0.72,29.67],[-0.89,29.64],[-1.0366,29.7035],[-1.13,29.79],[-1.2761,29.9044]]},
+    {roos:false, c:[[-1.2761,29.9044],[-1.32,30.00],[-1.25,30.07],[-0.98,30.27],[-0.72,30.52],[-0.61,30.66],[-0.6128,30.9452],[-0.43,31.29],[-0.33,31.54],[-0.16,32.00],[0.0512,32.4637]]}
+  ];
+
+  var TILE_VOYAGER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  var TILE_LIGHT   = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+  var ATTRIB = '&copy; <a href="https://openstreetmap.org">OSM</a> &copy; <a href="https://carto.com">CARTO</a>';
+
+  function numIcon(n, color) {
+    return L.divIcon({
+      html: '<div style="width:30px;height:30px;border-radius:50%;background:'+color+';border:3px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;font-weight:700;color:#fff">'+n+'</div>',
+      iconSize:[30,30], iconAnchor:[15,15], className:''
+    });
+  }
+
+  function buildOverview(segs) {
+    var el = document.getElementById('kaart-overzicht');
+    if (!el) return;
+    var map = L.map(el, {scrollWheelZoom:false});
+    L.tileLayer(TILE_VOYAGER, {attribution:ATTRIB, subdomains:'abcd', maxZoom:14}).addTo(map);
+    var allCoords = [];
+    segs.forEach(function(seg) {
+      allCoords = allCoords.concat(seg.c);
+      L.polyline(seg.c, {color:seg.roos?'#7A5BA6':'#1E5C42', weight:5, opacity:0.9, lineJoin:'round', lineCap:'round'}).addTo(map);
+    });
+    var sectionIds = ['kampala','fortportal','queenelizabeth','bwindi','bunyonyi','mburo','entebbe'];
+    STOPS.forEach(function(s, i) {
+      var col = s.roos ? '#7A5BA6' : '#1E5C42';
+      L.marker([s.lat, s.lng], {icon: numIcon(i+1, col)}).addTo(map)
+        .bindPopup('<b>'+(i+1)+'. '+s.n+'</b><br><small style="color:#666">'+s.d+' &middot; '+s.l+'</small>')
+        .on('click', function() {
+          var el = document.getElementById(sectionIds[i]);
+          if (el) el.scrollIntoView({behavior:'smooth'});
+        });
+    });
+    map.fitBounds(L.latLngBounds(allCoords), {padding:[28,28], maxZoom:7});
+  }
+
+  function initOverview() {
+    var base = 'https://router.project-osrm.org/route/v1/driving/';
+    function fmt(arr) { return arr.map(function(s){return s.lng+','+s.lat;}).join(';'); }
+    function fetchSeg(stops) {
+      return fetch(base+fmt(stops)+'?overview=full&geometries=geojson')
+        .then(function(r){return r.json();})
+        .then(function(d){
+          if(d.code!=='Ok') throw 0;
+          return d.routes[0].geometry.coordinates.map(function(c){return [c[1],c[0]];});
+        });
+    }
+    Promise.all([
+      fetchSeg(STOPS.slice(0,3)),
+      fetchSeg(STOPS.slice(2,5)),
+      fetchSeg(STOPS.slice(4,7))
+    ]).then(function(res) {
+      buildOverview([{c:res[0],roos:false},{c:res[1],roos:true},{c:res[2],roos:false}]);
+    }).catch(function() {
+      buildOverview(FB);
+    });
+  }
+
+  function initChapterMap(id, stopIdx) {
+    var el = document.getElementById(id);
+    if (!el || el._leaflet_id) return;
+    var current = STOPS[stopIdx];
+    var col = current.roos ? '#7A5BA6' : '#1E5C42';
+    var map = L.map(el, {scrollWheelZoom:false, zoomControl:false, dragging:false, attributionControl:false});
+    L.tileLayer(TILE_LIGHT, {subdomains:'abcd', maxZoom:12}).addTo(map);
+
+    var allCoords = STOPS.map(function(s){return [s.lat,s.lng];});
+
+    // Route ahead: lichte gestippelde lijn
+    L.polyline(allCoords, {color:'#d0d8d0', weight:2, dashArray:'5,4'}).addTo(map);
+
+    // Afgelegde route: segment per segment ingekleurd
+    for (var k = 0; k < stopIdx; k++) {
+      var segCol = (STOPS[k].roos && STOPS[k+1].roos) ? '#7A5BA6' : '#1E5C42';
+      L.polyline([[STOPS[k].lat,STOPS[k].lng],[STOPS[k+1].lat,STOPS[k+1].lng]], {
+        color:segCol, weight:3.5, opacity:0.65
+      }).addTo(map);
+    }
+
+    // Bezochte stops: kleine gevulde cirkels
+    for (var i = 0; i < stopIdx; i++) {
+      L.circleMarker([STOPS[i].lat,STOPS[i].lng], {
+        radius:5, fillColor:STOPS[i].roos?'#7A5BA6':'#1E5C42',
+        color:'#fff', weight:1.5, fillOpacity:0.65
+      }).addTo(map);
+    }
+
+    // Toekomstige stops: lege cirkels
+    for (var j = stopIdx+1; j < STOPS.length; j++) {
+      L.circleMarker([STOPS[j].lat,STOPS[j].lng], {
+        radius:4, fillColor:'#fff',
+        color:'#c0c8c0', weight:1.5, fillOpacity:1
+      }).addTo(map);
+    }
+
+    // Omcirkeling: zachte stippelcirkel rondom huidige locatie
+    L.circle([current.lat,current.lng], {
+      radius:22000, color:col, weight:1.5,
+      fill:false, opacity:0.35, dashArray:'5,5'
+    }).addTo(map);
+
+    // Huidige locatie: pulserende marker met nummer
+    var pulseIcon = L.divIcon({
+      html: '<div style="position:relative;width:50px;height:50px;">'
+          + '<div style="position:absolute;top:50%;left:50%;width:50px;height:50px;border-radius:50%;border:2px solid '+col+';animation:pulse-ring 2s ease-out infinite;"></div>'
+          + '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:'+col+';border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:700;color:white;">'+(stopIdx+1)+'</div>'
+          + '</div>',
+      iconSize:[50,50], iconAnchor:[25,25], className:''
+    });
+    L.marker([current.lat,current.lng], {icon:pulseIcon}).addTo(map)
+      .bindPopup('<b>'+current.n+'</b><br><small style="color:#666">'+current.d+'</small>');
+
+    map.fitBounds(L.latLngBounds(allCoords), {padding:[22,22]});
+  }
+
+  var chapterConf = [
+    {id:'chaptermap-1', stopIdx:0},
+    {id:'chaptermap-2', stopIdx:1},
+    {id:'chaptermap-3', stopIdx:2},
+    {id:'chaptermap-4', stopIdx:3},
+    {id:'chaptermap-5', stopIdx:4},
+    {id:'chaptermap-6', stopIdx:5},
+    {id:'chaptermap-7', stopIdx:6}
+  ];
+
+  if ('IntersectionObserver' in window) {
+    var chapObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var conf = null;
+          for (var i=0; i<chapterConf.length; i++) { if (chapterConf[i].id===e.target.id) {conf=chapterConf[i];break;} }
+          if (conf) { initChapterMap(conf.id, conf.stopIdx); chapObs.unobserve(e.target); }
+        }
+      });
+    }, {threshold:0.05, rootMargin:'100px 0px'});
+    chapterConf.forEach(function(m) {
+      var el = document.getElementById(m.id);
+      if (el) chapObs.observe(el);
+    });
+  } else {
+    chapterConf.forEach(function(m){ initChapterMap(m.id, m.stopIdx); });
+  }
+
+  var fades = document.querySelectorAll('.fade');
+  if ('IntersectionObserver' in window) {
+    var fadeObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); fadeObs.unobserve(e.target); }
+      });
+    }, {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+    fades.forEach(function(el){ fadeObs.observe(el); });
+  } else {
+    fades.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  window.addEventListener('load', initOverview);
+
+  // ── Sticky nav & back-to-top ──
+  var stickyNav = document.getElementById('sticky-nav');
+  var btt       = document.getElementById('back-to-top');
+  var navLinks  = document.querySelectorAll('.nav-link');
+  var sections  = ['kampala','fortportal','queenelizabeth','bwindi','bunyonyi','mburo','entebbe']
+                    .map(function(id){ return document.getElementById(id); });
+  var heroEl    = document.querySelector('.hero');
+
+  window.addEventListener('scroll', function() {
+    var sy = window.scrollY;
+    var threshold = (heroEl ? heroEl.offsetHeight * 0.6 : 400);
+    if (sy > threshold) {
+      stickyNav.classList.add('zichtbaar');
+      btt.classList.add('zichtbaar');
+    } else {
+      stickyNav.classList.remove('zichtbaar');
+      btt.classList.remove('zichtbaar');
+    }
+    // highlight active section
+    var current = '';
+    sections.forEach(function(s) {
+      if (s && s.getBoundingClientRect().top < 100) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+      a.classList.toggle('actief', a.getAttribute('href') === '#' + current);
+    });
+  }, {passive: true});
+
+  btt.addEventListener('click', function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+
+  // ── Dagboek gevuld state ──
+  document.querySelectorAll('.dagboek-sectie').forEach(function(el) {
+    if (!el.querySelector('.dagboek-ph')) {
+      el.classList.add('dagboek-gevuld');
+    }
+  });
+
+})();
+</script>
+
+
+<button class="back-to-top" id="back-to-top" aria-label="Terug naar boven">↑</button>
+
+</body>
+</html>

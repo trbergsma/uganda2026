@@ -1,0 +1,5 @@
+.DS_Store
+.claude/
+*.pdf
+fotos/.DS_Store
+fotos/**/.DS_Store

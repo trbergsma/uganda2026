@@ -347,12 +347,28 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
   transform:translateY(-100%);transition:transform .3s ease;
 }
 .sticky-nav.zichtbaar{transform:translateY(0);}
-.sticky-nav-links{
-  display:flex;align-items:center;gap:4px;height:46px;
+.sticky-nav-inner{
+  display:flex;align-items:center;gap:8px;height:46px;
   padding:0 24px;max-width:940px;margin:0 auto;
+}
+.sticky-nav-links{
+  display:flex;align-items:center;gap:4px;flex:1;
   overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
 }
 .sticky-nav-links::-webkit-scrollbar{display:none;}
+.lang-btn{
+  display:flex;align-items:center;gap:5px;flex:none;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:6px;padding:4px 9px;
+  color:#fff;cursor:pointer;
+  font-family:"Space Mono",monospace;
+  font-size:10px;letter-spacing:0.06em;
+  transition:background .15s;
+}
+.lang-btn:hover{background:rgba(255,255,255,0.2);}
+.goog-te-banner-frame,.skiptranslate{display:none!important;}
+body{top:0!important;}
 .nav-link{
   font-family:"Space Mono",monospace;font-size:10.5px;
   letter-spacing:0.06em;text-transform:uppercase;
@@ -398,16 +414,20 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
 <body>
 
 <nav class="sticky-nav" id="sticky-nav" aria-label="Bestemmingen">
-  <div class="sticky-nav-links">
-    <a href="#kampala"        class="nav-link">1 · Kampala</a>
-    <a href="#fortportal"     class="nav-link">2 · Fort Portal</a>
-    <a href="#queenelizabeth" class="nav-link">3 · Queen Elizabeth</a>
-    <a href="#bwindi"         class="nav-link">4 · Bwindi</a>
-    <a href="#bunyonyi"       class="nav-link">5 · Lake Bunyonyi</a>
-    <a href="#mburo"          class="nav-link">6 · Lake Mburo</a>
-    <a href="#entebbe"        class="nav-link">7 · Entebbe</a>
+  <div class="sticky-nav-inner">
+    <div class="sticky-nav-links">
+      <a href="#kampala"        class="nav-link">1 · Kampala</a>
+      <a href="#fortportal"     class="nav-link">2 · Fort Portal</a>
+      <a href="#queenelizabeth" class="nav-link">3 · Queen Elizabeth</a>
+      <a href="#bwindi"         class="nav-link">4 · Bwindi</a>
+      <a href="#bunyonyi"       class="nav-link">5 · Lake Bunyonyi</a>
+      <a href="#mburo"          class="nav-link">6 · Lake Mburo</a>
+      <a href="#entebbe"        class="nav-link">7 · Entebbe</a>
+    </div>
+    <button class="lang-btn" id="lang-btn" aria-label="Switch to English">🇬🇧 EN</button>
   </div>
 </nav>
+<div id="google_translate_element" style="display:none;"></div>
 
 <!-- ═══════ HERO ═══════ -->
 <header class="hero">
@@ -1469,6 +1489,40 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
 
 
 <button class="back-to-top" id="back-to-top" aria-label="Terug naar boven">↑</button>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'nl',
+    includedLanguages: 'en',
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+
+(function() {
+  var btn = document.getElementById('lang-btn');
+  var isEN = false;
+
+  btn.addEventListener('click', function() {
+    var select = document.querySelector('.goog-te-combo');
+    if (!select) return;
+    if (!isEN) {
+      select.value = 'en';
+      select.dispatchEvent(new Event('change'));
+      btn.innerHTML = '🇳🇱 NL';
+      btn.setAttribute('aria-label', 'Wissel naar Nederlands');
+      isEN = true;
+    } else {
+      select.value = 'nl';
+      select.dispatchEvent(new Event('change'));
+      btn.innerHTML = '🇬🇧 EN';
+      btn.setAttribute('aria-label', 'Switch to English');
+      isEN = false;
+    }
+  });
+})();
+</script>
 
 </body>
 </html>

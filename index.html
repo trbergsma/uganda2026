@@ -1445,7 +1445,15 @@ body{top:0!important;}
 
   window.addEventListener('load', initOverview);
 
-  // ── Sticky nav & back-to-top ──
+})();
+</script>
+
+
+<button class="back-to-top" id="back-to-top" aria-label="Terug naar boven">↑</button>
+
+<script>
+// ── Sticky nav, back-to-top & dagboek — onafhankelijk van Leaflet ──
+(function() {
   var stickyNav = document.getElementById('sticky-nav');
   var btt       = document.getElementById('back-to-top');
   var navLinks  = document.querySelectorAll('.nav-link');
@@ -1455,7 +1463,7 @@ body{top:0!important;}
 
   window.addEventListener('scroll', function() {
     var sy = window.scrollY;
-    var threshold = (heroEl ? heroEl.offsetHeight * 0.6 : 400);
+    var threshold = heroEl ? heroEl.offsetHeight * 0.6 : 400;
     if (sy > threshold) {
       stickyNav.classList.add('zichtbaar');
       btt.classList.add('zichtbaar');
@@ -1463,7 +1471,6 @@ body{top:0!important;}
       stickyNav.classList.remove('zichtbaar');
       btt.classList.remove('zichtbaar');
     }
-    // highlight active section
     var current = '';
     sections.forEach(function(s) {
       if (s && s.getBoundingClientRect().top < 100) current = s.id;
@@ -1477,18 +1484,11 @@ body{top:0!important;}
     window.scrollTo({top: 0, behavior: 'smooth'});
   });
 
-  // ── Dagboek gevuld state ──
   document.querySelectorAll('.dagboek-sectie').forEach(function(el) {
-    if (!el.querySelector('.dagboek-ph')) {
-      el.classList.add('dagboek-gevuld');
-    }
+    if (!el.querySelector('.dagboek-ph')) el.classList.add('dagboek-gevuld');
   });
-
 })();
 </script>
-
-
-<button class="back-to-top" id="back-to-top" aria-label="Terug naar boven">↑</button>
 
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>

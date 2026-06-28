@@ -361,11 +361,15 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
   display:flex;align-items:center;gap:4px;
   flex:1;min-width:0;
   overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
-  padding-right:8px;
-  mask-image:linear-gradient(to right,black calc(100% - 24px),transparent 100%);
-  -webkit-mask-image:linear-gradient(to right,black calc(100% - 24px),transparent 100%);
+  padding-right:4px;
+  mask-image:linear-gradient(to right,black calc(100% - 56px),transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,black calc(100% - 56px),transparent 100%);
 }
 .sticky-nav-links::-webkit-scrollbar{display:none;}
+.sticky-nav-sep{
+  width:1px;height:20px;flex:none;
+  background:rgba(255,255,255,0.2);margin:0 10px;
+}
 .lang-btn{
   display:flex;align-items:center;gap:5px;flex:none;
   background:rgba(255,255,255,0.1);
@@ -434,6 +438,7 @@ body{top:0!important;}
       <a href="#mburo"          class="nav-link">6 · Lake Mburo</a>
       <a href="#entebbe"        class="nav-link">7 · Entebbe</a>
     </div>
+    <div class="sticky-nav-sep" aria-hidden="true"></div>
     <button class="lang-btn" id="lang-btn" aria-label="Switch to English">🇬🇧 EN</button>
   </div>
 </nav>

@@ -1463,7 +1463,7 @@ body{top:0!important;}
 
   window.addEventListener('scroll', function() {
     var sy = window.scrollY;
-    var threshold = heroEl ? heroEl.offsetHeight * 0.6 : 400;
+    var threshold = 50;
     if (sy > threshold) {
       stickyNav.classList.add('zichtbaar');
       btt.classList.add('zichtbaar');

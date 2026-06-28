@@ -106,6 +106,7 @@ a{color:var(--forest);}
   overflow:hidden;
   border:1px solid var(--line);
   box-shadow:var(--shadow);
+  isolation:isolate;
 }
 .kaart-legenda{
   display:flex;gap:24px;flex-wrap:wrap;
@@ -312,6 +313,7 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
 
 /* ─── CHAPTER MAPS ─── */
 .chapter-map{
+  isolation:isolate;
   height:280px;
   border-radius:14px;
   overflow:hidden;
@@ -340,7 +342,7 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
 
 /* ─── STICKY NAV ─── */
 .sticky-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
+  position:fixed;top:0;left:0;right:0;z-index:9999;
   background:rgba(28,43,34,0.96);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border-bottom:1px solid rgba(255,255,255,0.07);
@@ -348,12 +350,17 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
 }
 .sticky-nav.zichtbaar{transform:translateY(0);}
 .sticky-nav-inner{
-  display:flex;align-items:center;gap:8px;height:46px;
-  padding:0 24px;max-width:940px;margin:0 auto;
+  display:flex;align-items:center;height:46px;
+  padding:0 16px 0 24px;max-width:940px;margin:0 auto;
+  gap:0;
 }
 .sticky-nav-links{
-  display:flex;align-items:center;gap:4px;flex:1;
+  display:flex;align-items:center;gap:4px;
+  flex:1;min-width:0;
   overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  padding-right:8px;
+  mask-image:linear-gradient(to right,black calc(100% - 24px),transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,black calc(100% - 24px),transparent 100%);
 }
 .sticky-nav-links::-webkit-scrollbar{display:none;}
 .lang-btn{

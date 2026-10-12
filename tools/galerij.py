@@ -8,8 +8,9 @@ Gebruik:
 Wat het doet:
   - zet .heic om naar .jpeg en .mov naar .mp4
   - verkleint foto's met een lange zijde boven 2000 px (nooit vergroten)
-  - zet de foto's twee aan twee in rijen; elke foto houdt zijn eigen verhouding,
-    dus er wordt niets afgesneden en liggend/staand mag door elkaar
+  - zet de foto's in rijen van ongeveer gelijke hoogte: twee liggende of drie
+    staande naast elkaar, zodat staande foto's niet groter uitvallen dan
+    liggende; elke foto houdt zijn eigen verhouding, er wordt niets afgesneden
   - vervangt het fotoblok van die bestemming in Uganda2026.html en kopieert
     het resultaat naar index.html
 
@@ -34,6 +35,11 @@ FOTOS = ROOT / "fotos"
 
 MAX_ZIJDE = 2000
 KWALITEIT = "80"
+# Een rij is vol zodra de verhoudingen (breedte/hoogte) samen RIJ_VOL halen:
+# twee liggende (2 x 1,33) of drie staande (3 x 0,75). Een rij die dat niet
+# haalt wordt niet opgerekt maar smaller gezet, alsof de som RIJ_REF was.
+RIJ_VOL = 1.9
+RIJ_REF = 2.5
 FOTO_EXT = {".jpg", ".jpeg", ".png"}
 VIDEO_EXT = {".mp4"}
 
@@ -185,6 +191,49 @@ def verzamel(bestemming, html, grenzen):
     return fotos, videos
 
 
+def verdeel(fotos):
+    """Verdeelt foto's (naam, breed, alt, verhouding) over rijen.
+
+    Geeft [(groep, hoofd, breedte)]: hoofd = foto over de volle breedte,
+    breedte = deel van de paginabreedte dat de rij inneemt.
+    """
+    rijen, groep = [], []
+    for foto in fotos:
+        if foto[1]:
+            if groep:
+                rijen.append((groep, False))
+                groep = []
+            rijen.append(([foto], True))
+            continue
+        groep.append(foto)
+        if sum(f[3] for f in groep) >= RIJ_VOL:
+            rijen.append((groep, False))
+            groep = []
+    if groep:
+        rijen.append((groep, False))
+
+    # Eén losse foto na een rij van drie of meer: verdeel ze liever gelijk.
+    for i in range(1, len(rijen)):
+        (vorige, hoofd_v), (deze, hoofd_d) = rijen[i - 1], rijen[i]
+        if hoofd_v or hoofd_d or len(deze) != 1 or len(vorige) < 3:
+            continue
+        if sum(f[3] for f in deze) >= RIJ_VOL:
+            continue
+        if sum(f[3] for f in vorige[:-1]) >= 1.4:
+            deze.insert(0, vorige.pop())
+
+    uit = []
+    for groep, hoofd in rijen:
+        som = sum(f[3] for f in groep)
+        if hoofd:
+            # Een staande foto over de volle breedte wordt te hoog.
+            breedte = 1.0 if som >= 1 else 0.45
+        else:
+            breedte = 1.0 if som >= RIJ_VOL else min(1.0, som / RIJ_REF)
+        uit.append((groep, hoofd, breedte))
+    return uit
+
+
 def bouw_blok(bestemming, fotos, videos):
     map_ = FOTOS / bestemming
     standaard_alt = f"{NAMEN.get(bestemming, bestemming)} Uganda 2026"
@@ -194,35 +243,24 @@ def bouw_blok(bestemming, fotos, videos):
         '      <p class="eyebrow fade">Foto\'s</p>',
     ]
 
-    def slot(naam, alt):
-        b, h = verklein(map_ / naam)
+    def slot(foto):
+        naam, _, alt, verhouding = foto
         src = f"fotos/{bestemming}/{quote(naam)}"
         alt = (alt or standaard_alt).replace('"', "&quot;")
-        return (f'        <div class="foto-slot" style="--r:{b / h:.4f}">'
+        return (f'        <div class="foto-slot" style="--r:{verhouding:.4f}">'
                 f'<img src="{src}" alt="{alt}" loading="lazy"></div>')
 
-    def rij(slots, klasse=""):
-        regels.append(f'      <div class="foto-rij{klasse} fade">')
-        regels.extend(slots)
-        regels.append("      </div>")
-
-    wachtend = []
+    gemeten = []
     for naam, breed, alt in fotos:
-        if breed:
-            if wachtend:
-                rij(wachtend, " enkel")
-                wachtend = []
-            s = slot(naam, alt)
-            # Een staande foto over de volle breedte wordt te hoog.
-            staand = float(re.search(r"--r:([\d.]+)", s).group(1)) < 1
-            rij([s], " enkel" if staand else " hoofd")
-            continue
-        wachtend.append(slot(naam, alt))
-        if len(wachtend) == 2:
-            rij(wachtend)
-            wachtend = []
-    if wachtend:
-        rij(wachtend, " enkel")
+        b, h = verklein(map_ / naam)
+        gemeten.append((naam, breed, alt, b / h))
+
+    for groep, hoofd, breedte in verdeel(gemeten):
+        klasse = " hoofd" if hoofd else ""
+        stijl = f' style="--b:{breedte:.3f}"' if breedte < 1 else ""
+        regels.append(f'      <div class="foto-rij{klasse} fade"{stijl}>')
+        regels.extend(slot(foto) for foto in groep)
+        regels.append("      </div>")
 
     for naam in videos:
         maat = video_maten(map_ / naam)

@@ -59,6 +59,18 @@ def maten(pad):
     return b, h
 
 
+def video_maten(pad):
+    """Breedte en hoogte van een video via Spotlight, of None als die onbekend zijn."""
+    waarden = []
+    for sleutel in ("kMDItemPixelWidth", "kMDItemPixelHeight"):
+        uit = subprocess.run(["mdls", "-raw", "-name", sleutel, str(pad)],
+                             capture_output=True, text=True).stdout.strip()
+        if not uit.isdigit():
+            return None
+        waarden.append(int(uit))
+    return tuple(waarden)
+
+
 def zet_om(map_):
     """HEIC -> JPEG en MOV -> MP4, het origineel verdwijnt na een geslaagde omzetting."""
     for pad in sorted(map_.iterdir()):
@@ -213,9 +225,12 @@ def bouw_blok(bestemming, fotos, videos):
         rij(wachtend, " enkel")
 
     for naam in videos:
+        maat = video_maten(map_ / naam)
+        staand = " staand" if maat and maat[1] > maat[0] else ""
+        verhouding = f' style="aspect-ratio:{maat[0]}/{maat[1]}"' if maat else ""
         regels += [
-            '      <div class="video-slot fade">',
-            "        <video controls playsinline>",
+            f'      <div class="video-slot{staand} fade">',
+            f"        <video controls playsinline{verhouding}>",
             f'          <source src="fotos/{bestemming}/{quote(naam)}" type="video/mp4">',
             "        </video>",
             "      </div>",

@@ -1,0 +1,7 @@
+# Volgorde van de galerij. Een * ervoor = volle breedte. Optioneel: naam | alt-tekst
+* 2026 Kampala Uganda - 1.jpeg
+2026 Kampala Uganda - 2.jpeg
+2026 Kampala Uganda - 4.jpeg
+2026 Kampala Uganda - 3.jpeg
+2026 Kampala Uganda - 5.jpeg
+2026 Kampala Uganda - 6.mp4

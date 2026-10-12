@@ -220,9 +220,14 @@ a{color:var(--forest);}
 .foto-placeholder .ph-icoon{font-size:28px;opacity:0.5;}
 .foto-placeholder .ph-label{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;}
 .foto-placeholder.groot,.foto-slot.groot{grid-column:1/-1;}
-.foto-slot img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
-.foto-slot.groot img{aspect-ratio:16/7;}
-.foto-slot.staand img{aspect-ratio:3/4;}
+/* Rijen van twee: elke foto houdt zijn eigen verhouding (--r = breedte/hoogte),
+   de breedte verdeelt zich zo dat beide foto's even hoog worden. */
+.foto-rij{display:flex;align-items:flex-start;gap:12px;margin-top:12px;}
+.fotos-sectie .eyebrow + .foto-rij{margin-top:0;}
+.foto-rij .foto-slot{flex:var(--r,1.3333) 1 0%;min-width:0;}
+.foto-rij .foto-slot img{width:100%;height:auto;aspect-ratio:var(--r,1.3333);object-fit:cover;display:block;}
+.foto-rij.enkel{justify-content:center;}
+.foto-rij.enkel .foto-slot{flex:0 0 calc(50% - 6px);}
 .foto-cap{font-size:13px;color:#6b7a6f;margin:6px 4px 0 !important;font-style:italic;}
 .video-slot{border-radius:12px;overflow:hidden;margin-top:12px;}
 .video-slot video{width:100%;display:block;border-radius:12px;}
@@ -542,33 +547,27 @@ body{top:0!important;}
       </div>
     </div>
 
-    <div class="fotos-sectie fade">
-      <p class="eyebrow">Foto's</p>
-      <div class="foto-grid een">
-        <div class="foto-slot groot">
-          <img src="fotos/kampala/2026%20Kampala%20Uganda%20-%201.jpeg" alt="Kampala Uganda 2026" style="aspect-ratio:4/3;object-position:50% 0%;">
-        </div>
+    <!-- FOTOS:kampala (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.6327"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%201.jpeg" alt="Kampala Uganda 2026" loading="lazy"></div>
       </div>
-      <div class="foto-grid" style="margin-top:12px">
-        <div class="foto-slot">
-          <img src="fotos/kampala/2026%20Kampala%20Uganda%20-%202.jpeg" alt="Kampala Uganda 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/kampala/2026%20Kampala%20Uganda%20-%204.jpeg" alt="Kampala Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/kampala/2026%20Kampala%20Uganda%20-%203.jpeg" alt="Kampala Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/kampala/2026%20Kampala%20Uganda%20-%205.jpeg" alt="Kampala Uganda 2026">
-        </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%202.jpeg" alt="Kampala Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%204.jpeg" alt="Kampala Uganda 2026" loading="lazy"></div>
       </div>
-      <div class="video-slot">
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%203.jpeg" alt="Kampala Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%205.jpeg" alt="Kampala Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
         <video controls playsinline>
           <source src="fotos/kampala/2026%20Kampala%20Uganda%20-%206.mp4" type="video/mp4">
         </video>
       </div>
     </div>
+    <!-- /FOTOS:kampala -->
 
   </div>
 </section>
@@ -651,51 +650,39 @@ body{top:0!important;}
       </div>
     </div>
 
-    <div class="fotos-sectie fade">
-      <p class="eyebrow">Foto's</p>
-      <div class="foto-grid een">
-        <div class="foto-slot groot">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%201.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
+    <!-- FOTOS:fortportal (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:2.3310"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%201.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
       </div>
-      <div class="foto-grid" style="margin-top:12px">
-        <div class="foto-slot">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%202.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%208.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%203.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2010b.jpeg" alt="Markt onderweg — Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%204.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%205.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%206.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%207.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%209.jpeg" alt="Fort Portal Uganda 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2011b.jpeg" alt="Turaco bij het kratermeer — Ndali Lodge">
-        </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%202.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%208.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
       </div>
-      <div class="video-slot">
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%203.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.4674"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2010b.jpeg" alt="Markt onderweg — Fort Portal Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7502"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%204.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%205.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%206.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%207.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%209.jpeg" alt="Fort Portal Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2011b.jpeg" alt="Turaco bij het kratermeer — Ndali Lodge" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
         <video controls playsinline>
           <source src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2010.mp4" type="video/mp4">
         </video>
       </div>
     </div>
+    <!-- /FOTOS:fortportal -->
 
   </div>
 </section>
@@ -796,79 +783,59 @@ body{top:0!important;}
       </div>
     </div>
 
-    <div class="fotos-sectie fade">
-      <p class="eyebrow">Foto's</p>
-      <div class="foto-grid een">
-        <div class="foto-slot groot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2020%20van%2021.jpeg" alt="Queen Elizabeth NP 2026" style="aspect-ratio:4/3;">
-        </div>
+    <!-- FOTOS:queenelizabeth (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2020%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
       </div>
-      <div class="foto-grid een" style="margin-top:12px">
-        <div class="foto-slot groot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%209%20van%2021.jpeg" alt="Luipaard — Queen Elizabeth NP 2026" style="aspect-ratio:1600/1069;">
-        </div>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.4970"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%209%20van%2021.jpeg" alt="Luipaard — Queen Elizabeth NP 2026" loading="lazy"></div>
       </div>
-      <div class="foto-grid" style="margin-top:12px">
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%201.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%204%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%205%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%206%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%208%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%207%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2011%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2012%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2013%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2021b.jpeg" alt="Blauwkopagame — Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2014%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2015%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2016%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2018%20van%2021.jpeg" alt="Queen Elizabeth NP 2026">
-        </div>
-        <div class="foto-slot staand">
-          <img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2019b.jpeg" alt="Baviaan met jong — Queen Elizabeth NP 2026">
-        </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%201.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%204%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
       </div>
-      <div class="video-slot">
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%205%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%206%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%208%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%207%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2011%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2012%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2013%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.2217"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2021b.jpeg" alt="Blauwkopagame — Queen Elizabeth NP 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2014%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2015%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2016%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2018%20van%2021.jpeg" alt="Queen Elizabeth NP Uganda 2026" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2019b.jpeg" alt="Baviaan met jong — Queen Elizabeth NP 2026" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
         <video controls playsinline>
           <source src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%201.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="video-slot" style="margin-top:12px">
+      <div class="video-slot fade">
         <video controls playsinline>
           <source src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%202.mp4" type="video/mp4">
         </video>
       </div>
     </div>
+    <!-- /FOTOS:queenelizabeth -->
 
   </div>
 </section>
@@ -1637,6 +1604,21 @@ function googleTranslateElementInit() {
       btn.setAttribute('aria-label', 'Switch to English');
       isEN = false;
     }
+  });
+})();
+</script>
+
+<script>
+/* Vangnet voor de fotorijen: neem de echte verhouding van elke foto over,
+   zodat er ook bij een afwijkend bestand nooit iets wordt afgesneden. */
+(function() {
+  document.querySelectorAll('.foto-rij .foto-slot img').forEach(function(img) {
+    function zetVerhouding() {
+      if (img.naturalWidth && img.naturalHeight) {
+        img.parentNode.style.setProperty('--r', (img.naturalWidth / img.naturalHeight).toFixed(4));
+      }
+    }
+    if (img.complete) zetVerhouding(); else img.addEventListener('load', zetVerhouding);
   });
 })();
 </script>

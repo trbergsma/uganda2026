@@ -41,6 +41,7 @@ NAMEN = {
     "kampala": "Kampala",
     "fortportal": "Fort Portal",
     "queenelizabeth": "Queen Elizabeth NP",
+    "onderweg": "Onderweg naar Bwindi",
     "bwindi": "Bwindi",
     "bunyonyi": "Lake Bunyonyi",
     "mburo": "Lake Mburo",

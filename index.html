@@ -300,6 +300,7 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
   background:rgba(198,138,46,0.12);color:var(--gold);border-radius:999px;padding:2px 8px;margin-bottom:6px;
 }
 .lodge-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0;}
+.lodge-grid.drie{grid-template-columns:repeat(3,1fr);}
 .lodge-kaart{
   display:flex;flex-direction:column;
   padding:0;overflow:hidden;
@@ -343,7 +344,7 @@ footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
 
 /* ─── RESPONSIVE ─── */
 @media(max-width:620px){
-  .lodge-grid{grid-template-columns:1fr;}
+  .lodge-grid,.lodge-grid.drie{grid-template-columns:1fr;}
   .loc-header{flex-wrap:wrap;}
   .foto-grid{grid-template-columns:1fr 1fr;}
   .foto-rij{max-width:calc(min(1,var(--b,1)*1.5)*100%);}
@@ -1025,7 +1026,7 @@ body{top:0!important;}
     </div>
 
     <!-- DAGBOEK: bunyonyi -->
-    <div class="lodge-grid fade">
+    <div class="lodge-grid drie fade">
       <div class="lodge-kaart">
         <div class="lodge-thumb">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
@@ -1046,6 +1047,17 @@ body{top:0!important;}
           <span class="lodge-naam">Sharp Island Lodge ↗</span>
           <span class="lodge-domain">sharpislandlodge.com</span>
           <span class="lodge-desc">Een privé-eiland op Lake Bunyonyi, een botanische tuin omgeven door water.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://birdnestresort.com/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/birdnest.jpg" alt="Birdnest Resort — rieten daken aan de oever van Lake Bunyonyi">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Birdnest Resort ↗</span>
+          <span class="lodge-domain">birdnestresort.com</span>
+          <span class="lodge-desc">Aan de oever van Lake Bunyonyi, met zwembad, sauna en uitzicht over het meer.</span>
         </div>
       </a>
     </div>

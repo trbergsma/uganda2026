@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uganda 2026 · Familie Bergsma</title>
+<meta name="description" content="21 dagen door de Parel van Afrika, 6–26 juli 2026. Een reisverslag van de familie Bergsma.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Uganda 2026 · Familie Bergsma">
+<meta property="og:description" content="21 dagen door de Parel van Afrika, 6–26 juli 2026. Een reisverslag van de familie Bergsma.">
+<meta property="og:image" content="https://trbergsma.github.io/uganda2026/preview.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Een berggorilla tussen de bladeren in Bwindi">
+<meta property="og:url" content="https://trbergsma.github.io/uganda2026/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://trbergsma.github.io/uganda2026/preview.jpg?v=2">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+
+
+<style>
+:root{
+  --ink:#1C2B22;
+  --paper:#F0EBDE;
+  --paper2:#E8E0CE;
+  --paper3:#DDD4C0;
+  --forest:#1E5C42;
+  --moss:#3D7A5A;
+  --sage:#7DAF8A;
+  --gold:#C68A2E;
+  --roos:#7A5BA6;
+  --clay:#A9492A;
+  --line:rgba(28,43,34,0.14);
+  --shadow:0 1px 0 rgba(28,43,34,0.04),0 12px 32px -20px rgba(28,43,34,0.35);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Inter",system-ui,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 24px;}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.1;}
+p{margin-bottom:1em;}
+p:last-child{margin-bottom:0;}
+a{color:var(--forest);}
+
+.eyebrow{
+  font-family:"Space Mono",monospace;
+  font-size:11.5px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--moss);
+  display:block;
+  margin-bottom:14px;
+}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;overflow:hidden;
+  background:var(--forest);
+  color:#F4EFE3;
+  padding:100px 0 88px;
+}
+.topo{position:absolute;inset:0;opacity:0.45;pointer-events:none;}
+.hero .wrap{position:relative;z-index:2;}
+.hero .eyebrow{color:#A8D9BC;margin-bottom:20px;}
+.hero h1{
+  font-size:clamp(52px,9vw,112px);
+  letter-spacing:-0.025em;
+  font-weight:600;
+  margin-bottom:8px;
+}
+.hero h1 em{font-style:italic;color:var(--gold);font-weight:500;}
+.hero .lede{
+  font-size:clamp(17px,2.2vw,21px);
+  max-width:36ch;
+  color:#DDE8DF;
+  margin-top:20px;
+  line-height:1.55;
+}
+.facts{
+  display:flex;flex-wrap:wrap;gap:32px 48px;
+  margin-top:50px;
+  padding-top:32px;
+  border-top:1px solid rgba(244,239,227,0.18);
+}
+.fact .n{font-family:"Fraunces",serif;font-size:36px;line-height:1;color:#fff;display:block;}
+.fact .l{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:0.15em;text-transform:uppercase;color:#92C5A8;margin-top:7px;display:block;}
+
+/* ─── OVERZICHTSKAART ─── */
+.kaart-sectie{
+  padding:72px 0 80px;
+  background:var(--paper2);
+}
+.kaart-sectie h2{font-size:clamp(26px,3.8vw,40px);margin-bottom:10px;}
+.kaart-sectie .sub{font-size:15.5px;color:#3a4942;max-width:52ch;margin-bottom:30px;}
+#kaart-overzicht{
+  height:480px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  isolation:isolate;
+}
+.kaart-legenda{
+  display:flex;gap:24px;flex-wrap:wrap;
+  margin-top:16px;
+  font-family:"Space Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.06em;
+  color:#5a6a5f;
+}
+.kaart-legenda span{display:flex;align-items:center;gap:7px;}
+.leg-lijn{display:inline-block;width:20px;height:3px;border-radius:2px;}
+
+/* ─── INTRO ─── */
+.intro-sectie{padding:72px 0 56px;}
+.intro-sectie h2{font-size:clamp(26px,3.6vw,38px);max-width:22ch;margin-bottom:22px;}
+.intro-sectie p{max-width:64ch;color:#34433a;font-size:16.5px;}
+
+/* ─── LOCATIE SECTIES ─── */
+.locatie{
+  padding:72px 0 60px;
+  border-top:2px solid var(--line);
+}
+.locatie.roos-locatie{
+  border-top-color:rgba(122,91,166,0.3);
+}
+
+.loc-header{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:32px;
+}
+.stop-badge{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--forest);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:"Space Mono",monospace;font-size:15px;font-weight:700;
+  flex:none;margin-top:4px;
+  box-shadow:0 2px 8px rgba(30,92,66,0.3);
+}
+.stop-badge.roos{background:var(--roos);box-shadow:0 2px 8px rgba(122,91,166,0.3);}
+.loc-title-area{flex:1;}
+.loc-meta{
+  font-family:"Space Mono",monospace;
+  font-size:12px;
+  color:var(--clay);
+  letter-spacing:0.04em;
+  margin-bottom:6px;
+}
+.loc-title-area h2{font-size:clamp(28px,4vw,44px);margin-bottom:8px;}
+.loc-lodge{font-size:15px;color:#5a6a5f;}
+.loc-lodge strong{color:var(--ink);font-weight:600;}
+.roos-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(122,91,166,0.1);
+  color:var(--roos);
+  border:1px solid rgba(122,91,166,0.22);
+  border-radius:999px;padding:5px 13px;
+  font-family:"Space Mono",monospace;font-size:10.5px;
+  letter-spacing:0.04em;white-space:nowrap;
+  margin-top:10px;
+}
+
+.loc-tekst{max-width:65ch;color:#34433a;font-size:16.5px;margin-bottom:20px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;}
+.chip{
+  font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:0.04em;
+  background:var(--paper2);color:#41523f;border-radius:999px;padding:5px 12px;
+  border:1px solid var(--line);
+}
+.chip.gold{background:rgba(198,138,46,0.14);color:#7d5510;border-color:rgba(198,138,46,0.2);}
+.chip.roos{background:rgba(122,91,166,0.12);color:var(--roos);border-color:rgba(122,91,166,0.18);}
+
+/* ─── DAGBOEK ─── */
+.dagboek-sectie{
+  margin-bottom:44px;
+  padding:28px 32px;
+  background:#FBF7EF;
+  border-radius:14px;
+  border-left:3px solid var(--sage);
+  box-shadow:var(--shadow);
+}
+.dagboek-sectie .eyebrow{color:#5a8a68;margin-bottom:10px;}
+.dagboek-inhoud p{font-size:16.5px;color:#34433a;line-height:1.75;}
+/* Prettige regellengte: het kader blijft breed, de tekst niet. */
+.dagboek-inhoud{max-width:37em;}
+.dag-kop{font-family:"Space Mono",monospace;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin:26px 0 6px;}
+.dagboek-inhoud .dag-kop:first-child{margin-top:4px;}
+/* ─── FOTO'S ─── */
+.fotos-sectie .eyebrow{margin-bottom:14px;}
+.foto-slot{border-radius:12px;overflow:hidden;}
+/* Fotorijen: elke foto houdt zijn eigen verhouding (--r = breedte/hoogte) en
+   de breedte verdeelt zich zo dat alle foto's in een rij even hoog worden.
+   Een onvolle rij is smaller (--b = deel van de breedte) en staat in het midden. */
+.foto-rij{display:flex;align-items:flex-start;gap:12px;margin:12px auto 0;max-width:calc(var(--b,1)*100%);}
+.fotos-sectie .eyebrow + .foto-rij{margin-top:0;}
+.foto-rij .foto-slot{flex:var(--r,1.3333) 1 0%;min-width:0;}
+.foto-rij .foto-slot img{width:100%;height:auto;aspect-ratio:var(--r,1.3333);object-fit:cover;display:block;}
+.foto-rij .foto-slot img{cursor:zoom-in;}
+/* Foto groot bekijken: klik op een foto, pijltjes of vegen voor de volgende. */
+.lightbox{position:fixed;inset:0;z-index:10000;background:rgba(14,20,16,0.95);display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 56px) 16px calc(env(safe-area-inset-bottom,0px) + 56px);}
+.lightbox[hidden]{display:none;}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,0.5);cursor:zoom-out;}
+.lightbox button{position:absolute;width:44px;height:44px;border:0;border-radius:999px;background:rgba(255,255,255,0.14);color:#fff;font-size:24px;line-height:1;cursor:pointer;}
+.lightbox button:hover,.lightbox button:focus-visible{background:rgba(255,255,255,0.28);outline:none;}
+.lightbox .lb-sluit{top:calc(env(safe-area-inset-top,0px) + 10px);right:16px;}
+.lightbox .lb-vorige{left:12px;top:50%;transform:translateY(-50%);}
+.lightbox .lb-volgende{right:12px;top:50%;transform:translateY(-50%);}
+.lightbox .lb-tekst{position:absolute;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);margin:0;text-align:center;color:#cfd8d2;font:12px/1.4 "Space Mono",monospace;letter-spacing:0.04em;}
+@media(max-width:620px){.lightbox .lb-vorige,.lightbox .lb-volgende{display:none;}}
+.foto-cap{font-size:13px;color:#6b7a6f;margin:6px 4px 0 !important;font-style:italic;}
+.video-slot{border-radius:12px;overflow:hidden;margin-top:12px;}
+.video-slot video{width:100%;height:auto;display:block;border-radius:12px;}
+/* Een staand filmpje blijft smal en gecentreerd, anders vult het de hele pagina. */
+.video-slot.staand{width:min(100%,420px);margin-left:auto;margin-right:auto;}
+/* Filmpjes naast elkaar: net als de fotorijen even hoog, breedte naar verhouding. */
+.video-rij{display:flex;align-items:flex-start;gap:12px;margin:12px auto 0;max-width:calc(var(--b,1)*100%);}
+.video-rij .video-slot,.video-rij .video-slot.staand{flex:var(--r,1.7778) 1 0%;min-width:0;width:auto;margin:0;}
+
+/* ─── TRANSFER BLOK ─── */
+.transfer-blok{
+  background:var(--paper3);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.transfer-info{
+  display:flex;align-items:center;gap:12px;
+  padding:18px 0;
+  font-family:"Space Mono",monospace;font-size:12px;
+  color:#6b7a6f;letter-spacing:0.03em;
+  flex-wrap:wrap;
+}
+.transfer-info svg{flex:none;color:#aabab0;}
+.transfer-info strong{color:var(--ink);}
+.onderweg{padding:10px 0 4px;}
+.onderweg h3{font-size:clamp(24px,3.2vw,34px);margin:0 0 22px;}
+.onderweg .fotos-sectie{padding-bottom:44px;}
+/* ─── HIGHLIGHTS ─── */
+.highlights{
+  background:var(--ink);color:#EFE9DB;
+  padding:80px 0;margin-top:0;
+}
+.highlights .eyebrow{color:var(--gold);}
+.highlights h2{font-size:clamp(26px,4vw,40px);margin-bottom:36px;max-width:20ch;}
+.hl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.hl-card{
+  border:1px solid rgba(239,233,219,0.13);
+  border-radius:14px;padding:26px 24px;
+  background:rgba(255,255,255,0.025);
+}
+.hl-card .icoon{color:var(--gold);margin-bottom:14px;}
+.hl-card h3{font-size:20px;margin-bottom:8px;color:#fff;}
+.hl-card p{font-size:14.5px;color:#b8c4b0;margin-bottom:12px;}
+.hl-who{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:0.08em;color:var(--sage);text-transform:uppercase;}
+
+/* ─── FOOTER ─── */
+footer{background:var(--forest);color:#D0E4D6;padding:60px 0;text-align:center;}
+footer .slot{font-family:"Fraunces",serif;font-size:28px;font-style:italic;color:#fff;margin-bottom:10px;}
+footer p{font-size:13.5px;color:#8ec4a4;margin-bottom:0;}
+
+/* ─── ANIMATIES ─── */
+.fade{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+.fade.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){
+  .fade{opacity:1;transform:none;transition:none;}
+  html{scroll-behavior:auto;}
+}
+
+/* ─── LEAFLET TWEAKS ─── */
+.leaflet-container{font-family:"Inter",sans-serif;}
+.leaflet-popup-content-wrapper{border-radius:10px;box-shadow:0 4px 16px -4px rgba(0,0,0,0.18);}
+.leaflet-popup-content{font-size:13.5px;font-family:"Space Mono",monospace;letter-spacing:0.02em;}
+
+/* ─── LODGE KAART ─── */
+.lodge-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0;}
+.lodge-grid.drie{grid-template-columns:repeat(3,1fr);}
+.lodge-kaart{
+  display:flex;flex-direction:column;
+  padding:0;overflow:hidden;
+  background:#FBF8F0;border:1px solid var(--line);
+  border-radius:12px;text-decoration:none;color:inherit;
+  max-width:600px;margin:0 auto 12px;
+  transition:border-color .15s,background .15s;
+  box-shadow:var(--shadow);
+}
+.lodge-grid .lodge-kaart{margin-bottom:0;}
+.lodge-kaart:hover{border-color:var(--moss);}
+.lodge-thumb{
+  position:relative;
+  width:100%;aspect-ratio:3/2;flex:none;
+  overflow:hidden;border-radius:0;
+  background:var(--paper2);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+.lodge-thumb svg{opacity:0.25;flex:none;width:48px;height:48px;}
+.lodge-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.lodge-info{padding:14px 16px;display:flex;flex-direction:column;}
+.lodge-naam{display:block;font-weight:600;font-size:14.5px;color:var(--forest);margin-bottom:2px;}
+.lodge-domain{display:block;font-family:"Space Mono",monospace;font-size:10px;color:#9aaa9f;margin-bottom:4px;}
+.lodge-desc{display:block;font-size:12.5px;color:#5a6a5f;line-height:1.4;}
+
+/* ─── CHAPTER MAPS ─── */
+.chapter-map{
+  isolation:isolate;
+  height:280px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+@keyframes pulse-ring{
+  0%{transform:translate(-50%,-50%) scale(0.5);opacity:0.85;}
+  100%{transform:translate(-50%,-50%) scale(2.8);opacity:0;}
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:620px){
+  .lodge-grid,.lodge-grid.drie{grid-template-columns:1fr;}
+  .loc-header{flex-wrap:wrap;}
+  .foto-rij{max-width:calc(min(1,var(--b,1)*1.5)*100%);}
+  /* Liggend naast staand wordt te klein op een telefoon: dan onder elkaar. Twee staande blijven naast elkaar. */
+  .video-rij.staand{max-width:100%;}
+  .video-rij:not(.staand){flex-direction:column;gap:0;}
+  .video-rij:not(.staand) .video-slot{width:100%;margin-top:12px;}
+  .video-rij:not(.staand) .video-slot.staand{width:min(100%,420px);margin:12px auto 0;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px;}
+  .dagboek-sectie{padding:20px 16px;}
+  .dagboek-inhoud p{font-size:16px;}
+  .wrap{padding:0 18px;}
+  .fact .n{font-size:30px;}
+  .hero{padding:72px 0 64px;}
+  .kaart-sectie{padding:52px 0 60px;}
+  #kaart-overzicht{height:320px;}
+}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px;}
+/* Bij een sprong via het menu blijft de bovenkant vrij van de vaste menubalk. */
+section[id],#onderweg-bwindi{scroll-margin-top:64px;}
+
+/* ─── STICKY NAV ─── */
+.sticky-nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  background:rgba(28,43,34,0.96);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  transform:translateY(-100%);transition:transform .3s ease;
+}
+.sticky-nav.zichtbaar{transform:translateY(0);}
+.sticky-nav-inner{
+  display:flex;align-items:center;height:46px;
+  padding:0 12px 0 20px;max-width:940px;margin:0 auto;
+  gap:0;
+}
+.sticky-nav-links{
+  display:flex;align-items:center;gap:1px;
+  flex:1;min-width:0;
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+}
+.sticky-nav-links::-webkit-scrollbar{display:none;}
+.sticky-nav-sep{
+  width:1px;height:20px;flex:none;
+  background:rgba(255,255,255,0.2);margin:0 6px;
+}
+.lang-btn{
+  display:flex;align-items:center;gap:5px;flex:none;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:6px;padding:4px 9px;
+  color:#fff;cursor:pointer;
+  font-family:"Space Mono",monospace;
+  font-size:10px;letter-spacing:0.06em;
+  transition:background .15s;
+}
+.lang-btn:hover{background:rgba(255,255,255,0.2);}
+.hero-lang{position:absolute;top:20px;right:20px;z-index:3;font-size:11px;padding:9px 13px;}
+.goog-te-banner-frame,.skiptranslate{display:none!important;}
+body{top:0!important;}
+.nav-link{
+  font-family:"Space Mono",monospace;font-size:10px;
+  letter-spacing:0.04em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);text-decoration:none;
+  padding:5px 7px;border-radius:5px;white-space:nowrap;
+  transition:color .15s,background .15s;
+}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.1);}
+.nav-link.actief{color:var(--gold);}
+/* Telefoon: grotere tikvlakken in het menu (na de gewone menuregels, anders winnen die). */
+@media(max-width:620px){
+  .sticky-nav-inner{height:52px;}
+  .nav-link{font-size:11px;padding:12px 9px;}
+  .lang-btn{font-size:11px;padding:9px 12px;}
+  /* Zachte vervaging rechts: er staan meer bestemmingen in het menu dan er passen. */
+  .sticky-nav-links{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent);}
+}
+
+/* ─── TERUG NAAR BOVEN ─── */
+.back-to-top{
+  position:fixed;bottom:28px;right:28px;z-index:199;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--forest);color:#fff;
+  border:2px solid rgba(255,255,255,0.15);
+  cursor:pointer;font-size:20px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .25s,transform .25s,background .15s;
+  box-shadow:0 4px 16px rgba(28,43,34,0.35);
+}
+.back-to-top.zichtbaar{opacity:1;transform:none;}
+.back-to-top:hover{background:var(--moss);}
+
+/* ─── DAGBOEK GEVULD ─── */
+.dagboek-sectie.dagboek-gevuld{
+  border-left-color:var(--forest);
+  background:#EAF5EC;
+}
+.dagboek-sectie.dagboek-gevuld .eyebrow::after{
+  content:' ✓';color:var(--forest);
+}
+
+/* ─── FOTO BIJSCHRIFT ─── */
+.foto-cap{
+  font-size:13px;color:#6b7a6f;
+  margin:6px 4px 0 !important;
+  font-style:italic;line-height:1.4;
+}
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav" id="sticky-nav" aria-label="Bestemmingen">
+  <div class="sticky-nav-inner">
+    <div class="sticky-nav-links">
+      <a href="#kampala"        class="nav-link">1 · Kampala</a>
+      <a href="#fortportal"     class="nav-link">2 · Fort Portal</a>
+      <a href="#queenelizabeth" class="nav-link">3 · Queen Elizabeth</a>
+      <a href="#bwindi"         class="nav-link">4 · Bwindi</a>
+      <a href="#bunyonyi"       class="nav-link">5 · Lake Bunyonyi</a>
+      <a href="#mburo"          class="nav-link">6 · Lake Mburo</a>
+      <a href="#entebbe"        class="nav-link">7 · Entebbe</a>
+    </div>
+    <div class="sticky-nav-sep" aria-hidden="true"></div>
+    <button class="lang-btn" id="lang-btn" aria-label="Switch to English">🇬🇧 EN</button>
+  </div>
+</nav>
+<div id="google_translate_element" style="display:none;"></div>
+
+<!-- ═══════ HERO ═══════ -->
+<header class="hero">
+  <button class="lang-btn hero-lang" type="button" aria-label="Switch to English">🇬🇧 EN</button>
+  <svg class="topo" viewBox="0 0 940 540" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#4A8A62" stroke-width="1.3" opacity="0.6">
+      <path d="M-60 100 Q 200 30 480 110 T 1020 70"/>
+      <path d="M-60 160 Q 220 90 490 162 T 1020 130"/>
+      <path d="M-60 230 Q 240 155 495 232 T 1020 200"/>
+      <path d="M-60 305 Q 210 240 490 305 T 1020 278"/>
+      <path d="M-60 385 Q 230 315 492 385 T 1020 360"/>
+      <path d="M-60 465 Q 210 400 488 464 T 1020 442"/>
+    </g>
+    <g fill="none" stroke="#C68A2E" stroke-width="1.5" opacity="0.35">
+      <path d="M-60 190 Q 300 115 530 192 T 1020 165"/>
+      <path d="M-60 340 Q 280 278 530 342 T 1020 318"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">De Parel van Afrika · 6–26 juli 2026</p>
+    <h1>Uganda &#127482;&#127468;<br><em>2026</em></h1>
+    <p class="lede">Eenentwintig dagen door groene heuvels, kratermeren, oerwouden en savannes, met het gezin en deels met Roos, Yuri en Zaja.</p>
+    <div class="facts">
+      <div class="fact"><span class="n">21</span><span class="l">dagen onderweg</span></div>
+      <div class="fact"><span class="n">7</span><span class="l">bestemmingen</span></div>
+      <div class="fact"><span class="n">4</span><span class="l">reizigers</span></div>
+      <div class="fact"><span class="n">9</span><span class="l">trekkings &amp; safari's</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════ OVERZICHTSKAART ═══════ -->
+<section class="kaart-sectie">
+  <div class="wrap">
+    <p class="eyebrow fade">De route in beeld</p>
+    <h2 class="fade">1.458 km door Uganda</h2>
+    <p class="sub fade">Een grote lus door het westen, in eigen tempo en met een terreinwagen.</p>
+    <div id="kaart-overzicht" class="fade"></div>
+    <div class="kaart-legenda fade">
+      <span><span class="leg-lijn" style="background:var(--forest)"></span>eigen route</span>
+      <span><span class="leg-lijn" style="background:var(--roos)"></span>met Roos, Yuri &amp; Zaja</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ INTRO ═══════ -->
+<section class="intro-sectie">
+  <div class="wrap">
+    <h2 class="fade">Van Kampala tot het Victoriameer.</h2>
+    <p class="fade">Een reis die de balans zocht tussen avontuur en rust. We begonnen bij Roos thuis in Kampala en reden daarna stap voor stap naar het westen, langs kratermeren, savannes en oerwoud: drie chimp- en gorilla-trekkings, zes safari's en overal onderweg de mensen die deze reis bijzonder maakten. De stukken met Roos, Yuri en Zaja zijn paars gemarkeerd.</p>
+    <p class="fade">Hieronder de hele route, etappe voor etappe, met per bestemming ons dagboek en de foto's.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     STOP 1 — KAMPALA
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="kampala">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-1"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">1</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">6 – 11 juli · 5 nachten</p>
+        <h2>Kampala</h2>
+        <p class="loc-lodge">Bij <strong>Roos, Yuri &amp; Zaja</strong> thuis · Kampala</p>
+        <span class="roos-badge">&#9679; met Roos, Yuri &amp; Zaja</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Kampala, de bruisende en groene hoofdstad, is waar Roos, Yuri en Zaja wonen. Vijf nachten logeerden we bij hen thuis, in een eigen cabin naast het huis: bijkomen van de vlucht, samen eten en de stad ontdekken. In april zagen we Roos nog in de Ardennen, nu stonden we bij hen voor de deur.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">met Roos, Yuri &amp; Zaja</span>
+      <span class="chip">acclimatiseren</span>
+      <span class="chip">stadsleven</span>
+      <span class="chip">rust</span>
+    </div>
+
+    <!-- DAGBOEK: kampala -->
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p>Vijf dagen in Kampala, gevuld tot de rand. En toch vonden Rosalie, Zeline en Zaja altijd wel tijd voor een duik in het zwembad. Soms meerdere keren per dag. Hun eigen logica: even zwemmen, dan iets doen, dan weer zwemmen. De perfecte manier om een Ugandese middag door te komen.</p>
+        <h4 class="dag-kop">dinsdag 7 juli</h4>
+        <p>Wat meteen opviel: alles was groter dan het tijdens het videobellen altijd leek. Het huis, de tuin, de ruimte. Roos heeft overal plekjes voor planten gecreëerd, Zaja trok de meiden meteen mee om alles te laten zien, en de drie honden zorgden voor het officiële welkomstcomité bij de poort. Na alles alleen met videobellen te hebben gezien was het bijzonder om eindelijk een echt kijkje te mogen nemen in het leven dat zij hier samen hebben opgebouwd.</p>
+        <p>Tussendoor was er ook het bubbelbad-incident. Het bad in de badkamer van Roos was na een sessie niet goed uitgezet, en de hele badkamer stroomde vol. Met z'n allen het water eruit gekregen: emmers, de buitendouche als noodsproeier, en ondertussen de planten buiten voorzien van een welkome dosis water na de droogte.</p>
+        <h4 class="dag-kop">woensdag 8 juli</h4>
+        <p>Na de lunch begon de chocoladeworkshop. We kwamen iets te laat aan, dus doodden we de tijd in de winkel boven het atelier. Odette liet er meteen een broek op maat maken. De workshop zelf was een verrassing: informatief, grappig en niet onbelangrijk heel lekker. Diezelfde avond gingen we naar de Ndere Troupe, een avond vol traditionele dans en muziek. Kleurrijk, energiek en ronduit indrukwekkend: de kracht, de conditie, de losse heupen. In de pauzes was er diner en een dessertbuffet. De beste levensles van de avond: stress? Schud met je billen. Dat kunnen niet alleen de vrouwen, maar ook de mannen uitstekend. Aan het eind dansten we zelf mee. Zeline wilde eigenlijk niet mee die avond, maar zei voor vertrek tegen Zaja: <em>'Ik ben alleen vanavond even weg, daarna doen we weer alles samen.'</em></p>
+        <h4 class="dag-kop">donderdag 9 juli</h4>
+        <p>De Afrikaanse markt op Ugandan Street was van een heel andere orde. We waren de enige toeristen, en iedereen wilde iets aan ons verkopen. We kwamen met een duidelijke missie: een beeld voor in de kast thuis, van precies de juiste afmetingen, ongeveer 110 centimeter hoog. Grote beelden kwamen van alle kanten tevoorschijn, maar de giraf die we zochten was op dat moment niet aanwezig op de markt. Wat we niet verwachtten: iemand ging hem speciaal voor ons ophalen. Die vastberadenheid verraste ons.</p>
+        <p>En tafelen bij Roos en Yuri. Een typisch Ugandees ontbijt, de Rolex, een pannenkoek met gebakken ei en avocado, en op een van de laatste avonden een Italiaanse maaltijd met vrienden van Roos die net op het punt stonden te verhuizen naar Kenia.</p>
+        <h4 class="dag-kop">vrijdag 10 juli</h4>
+        <p>De Bahá'í-tempel bezochten we op de laatste dag, boven op een van Kampala's heuvels. Bij aankomst waren ze nog aan het zingen; het geluid galmt prachtig door de open deuren en het hoge plafond. We liepen rond de tempel en picknickten daarna met de pasta-leftovers van de avond ervoor.</p>
+      </div>
+    </div>
+
+    <!-- FOTOS:kampala (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.6327"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%203%20van%2019.jpeg" alt="Samen bij Roos en Yuri thuis, iedereen met een kind op de arm" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2018%20van%2019.jpeg" alt="Rosalie, Zeline en Zaja in het zwembad" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%202%20van%2019.jpeg" alt="Selfie van onderen met Timothy, Yuri, Zaja en Zeline" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2014%20van%2019.jpeg" alt="Het welkomstcomité: de drie honden bij de deur" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2019%20van%2019.jpeg" alt="Rosalie met de honden op het terras" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%204%20van%2019.jpeg" alt="Met z'n allen in de zon bij de chocoladewinkel" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%205%20van%2019.jpeg" alt="Yuri op een stoere motor voor de winkel" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%206%20van%2019.jpeg" alt="Zaja en Zeline kijken toe hoe een cacaovrucht wordt opengemaakt" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.5625"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%207%20van%2019.jpeg" alt="Proeven aan de lange tafel tijdens de chocoladeworkshop" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%208%20van%2019.jpeg" alt="Zaja, Zeline en Rosalie versieren hun eigen chocolade" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%209%20van%2019.jpeg" alt="Selfie in de auto op weg naar de Ndere Troupe" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2011%20van%2019.jpeg" alt="Dansers van de Ndere Troupe in traditionele kleding" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%201%20van%2019.jpeg" alt="Aan tafel bij Roos en Yuri" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2012%20van%2019.jpeg" alt="Avondeten met vrienden bij Roos en Yuri" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2013%20van%2019.jpeg" alt="Een dikke knuffel in de avondtuin" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2015%20van%2019.jpeg" alt="Zaja en Zeline met hun waaiers in bijpassende jurken" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/kampala/2026%20Kampala%20Uganda%20-%2017%20van%2019.jpeg" alt="Rosalie, Zaja en Zeline op het pad naar de Bahá'í-tempel" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
+        <video controls playsinline poster="fotos/kampala/poster/2026%20Kampala%20Uganda%20-%2010%20van%2019.mp4.jpg" preload="none" style="aspect-ratio:1280/720">
+          <source src="fotos/kampala/2026%20Kampala%20Uganda%20-%2010%20van%2019.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:kampala -->
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 1: Kampala → Fort Portal ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Kampala → Fort Portal</strong>
+      <span>11 juli · ±300 km · 5–6 uur via A109</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 2 — FORT PORTAL & KIBALE
+══════════════════════════════════════════════ -->
+<section class="locatie" id="fortportal">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-2"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge">2</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">11 – 14 juli · 3 nachten</p>
+        <h2>Fort Portal &amp; Kibale</h2>
+        <p class="loc-lodge"><strong>Ndali Lodge</strong> · boven de kratermeren</p>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Rond Fort Portal liggen tientallen kratermeren in oude vulkaanmonden. Op de rand van een van die kraters ligt Ndali Lodge, met uitzicht over Lake Nyinambuga, waar we drie nachten sliepen. Vanaf hier trokken Timothy en Rosalie het regenwoud van Kibale in, op zoek naar de chimpansees van Kanyanchu.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip gold">&#9733; chimptrekking Kibale · 12 jul</span>
+      <span class="chip">Timothy + Rosalie</span>
+      <span class="chip">kratermeren</span>
+      <span class="chip">natuur</span>
+    </div>
+
+    <!-- DAGBOEK: fortportal -->
+    <div class="lodge-grid fade">
+      <a class="lodge-kaart" href="https://ugandawildlife.org/national-parks/kibale-national-park/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/fortportal/kibale.jpg" alt="Kibale National Park, chimpansees in het regenwoud" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Kibale National Park ↗</span>
+          <span class="lodge-domain">ugandawildlife.org</span>
+          <span class="lodge-desc">13 primatensoorten · 1.500+ chimpansees · 90% kans op een ontmoeting · het chimpanseekapitaal van de wereld.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://www.ndalilodge.co.ug/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/ndali.jpg" alt="Ndali Lodge bij de kratermeren van Fort Portal" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Ndali Lodge ↗</span>
+          <span class="lodge-domain">ndalilodge.co.ug</span>
+          <span class="lodge-desc">Op de rand van een vulkaankrater met uitzicht over Lake Nyinambuga en de Rwenzori's.</span>
+        </div>
+      </a>
+    </div>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <h4 class="dag-kop">zaterdag 11 juli</h4>
+        <p>De rit van Kampala naar Ndali Lodge zou vijf à zes uur duren. Het werd iets langer dan dat.</p>
+        <p>Al bij vertrek brandde het acculampje. "Laadt vanzelf op tijdens het rijden," zei de verhuurder per appje. Oké, dat geloven we dan maar. Onderweg werd Zeline wagenziek, net tien minuten voor de volgende stop moest ze overgeven, als slechtst mogelijke timing. Zielig, maar snel opgeruimd en door. Bij de stop lunch, en stroopwafels als toetje die de show stalen. Twee mannen op een boda boda kregen er ook eentje en waren direct fan.</p>
+        <p>Wat ons echt opviel die dag: iedereen in Uganda is zo ontzettend vriendelijk. Dat bleek al snel van groot belang. In the middle of nowhere startte de auto niet meer. Een voorbijganger stopte zonder aarzelen en hielp met geïmproviseerde startkabels. Verrassing nummer twee liet niet lang op zich wachten: de automaat schakelde niet meer door naar een hogere versnelling. Het vermogen zakte weg tot we, gelukkig veilig, langs de weg tot stilstand kwamen. Dit was zelfs voor ons net iets te veel avontuur.</p>
+        <p>Zeven uur onderweg, nog een uur te gaan, moe en met uitgeputte kinderen. Mike, de baas van het verhuurbedrijf, gebeld voor een taxi. Het wachten duurde lang, maar drie uur later kwamen we alsnog aan, zonder auto maar met een prachtig uitzicht als beloning. Ndali Lodge. De mensen waren geweldig en het uitzicht ook. Uitpakken, heerlijk eten samen, een koud biertje, en linea recta naar bed. Heaven on earth.</p>
+        <h4 class="dag-kop">zondag 12 juli</h4>
+        <p>De volgende dag bracht Brian, een medewerker van Mike, onze gerepareerde auto terug, met een nieuwe accu. Na de lunch reden Timothy en Rosalie naar de chimptrekking in Kibale, een bijzondere dag voor twee. Onderweg al een voorbode van wat komen ging: duizenden vlinders, het was hatching season. Na een korte instructievideo gingen ze met een kleine groep het bos in op zoek naar de chimpansees. Al snel vonden ze er een, daarna een grotere groep waarbij er eentje bijna over Rosalies voeten liep. Even later volgden ze de groep dieper het oerwoud in, zo dichtbij dat je de takken hoorde breken. Een ervaring die je niet snel vergeet.</p>
+        <p>Op de terugweg verdwaalden ze volledig, geen internet, geen Google Maps, midden in de rimboe. Een vriendelijke man bood aan om een stuk mee te rijden tot ze weer op het goede pad zaten. Later liet Rosalie weten wat ze ervan vond: <em>'Super vet, de chimpansees waren heel mooi en tevreden en ze kwamen heel dichtbij, ik wilde ze bijna aaien.'</em> Het avondeten was romantisch bij kaarslicht, want het middenstuk van het hoofdgebouw heeft geen stroom.</p>
+        <h4 class="dag-kop">maandag 13 juli</h4>
+        <p>De derde dag was er voor de lodge zelf. 's Ochtends gym met een adembenemend uitzicht en een onverwachte verrassing: de Deense Doggen van Ndali verraadden een groepje red tail monkeys door er scherp naartoe te kijken. Aubrey, de eigenaar, vertelde het mooie verhaal achter de lodge: zijn opa plantte ooit zelf de eerste bomen in het bos, en het landgoed strekt zich bijna zo ver uit als je kunt kijken. Zestig mensen werken voor Ndali, velen aan het onderhoud van dat bos. Na een massage voor Odette en Timothy gingen we met z'n allen naar de kratermeren om te suppen en te zwemmen. Het water was heerlijk warm en glashelder.</p>
+        <h4 class="dag-kop">dinsdag 14 juli</h4>
+        <p>Op de laatste ochtend liet zich vanaf de lodge nog een grote blauwe toerako zien, hoog in de bomen boven het kratermeer.</p>
+      </div>
+    </div>
+
+    <!-- FOTOS:fortportal (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:2.3310"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%204%20van%2018.jpeg" alt="Uitzicht over het kratermeer bij Ndali Lodge" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%201%20van%2018.jpeg" alt="Vol goede moed in de auto op weg naar Fort Portal" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.4674"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%202%20van%2018.jpeg" alt="Bananenmarkt langs de weg" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%203%20van%2018.jpeg" alt="Een baviaan bij de vangrail langs de weg" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7502"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%205%20van%2018.jpeg" alt="Een zwart-witte franjeaap hoog in een boom bij Ndali" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%207%20van%2018.jpeg" alt="Rosalie op de veranda van Ndali met uitzicht over het kratermeer" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%209%20van%2018.jpeg" alt="Rosalie oog in oog met de chimpansees in Kibale" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%208%20van%2018.jpeg" alt="Een chimpansee kijkt ons aan vanuit het struikgewas" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2010%20van%2018.jpeg" alt="Rosalie kijkt naar een chimpansee tussen de bomen van Kibale" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2011%20van%2018.jpeg" alt="Een chimpansee hangt ontspannen in een boom" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2014%20van%2018.jpeg" alt="Zeline en Rosalie met de Deense Doggen bij de buitengym van Ndali" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2016%20van%2018.jpeg" alt="Suppen op het kratermeer" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2013%20van%2018.jpeg" alt="Een bloeiende pijpbloem in de tuin van Ndali" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2017%20van%2018.jpeg" alt="Een grote blauwe toerako in de bomen boven het kratermeer" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2018%20van%2018.jpeg" alt="Met z'n vieren boven het kratermeer bij Ndali" loading="lazy"></div>
+      </div>
+      <div class="video-rij staand fade" style="--b:0.592">
+        <div class="video-slot staand" style="--r:0.5625">
+          <video controls playsinline poster="fotos/fortportal/poster/2026%20Fort%20Portal%20Uganda%20-%206%20van%2018.mp4.jpg" preload="none" style="aspect-ratio:720/1280">
+            <source src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%206%20van%2018.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-slot staand" style="--r:0.5625">
+          <video controls playsinline poster="fotos/fortportal/poster/2026%20Fort%20Portal%20Uganda%20-%2015%20van%2018.mp4.jpg" preload="none" style="aspect-ratio:720/1280">
+            <source src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2015%20van%2018.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="video-slot fade">
+        <video controls playsinline poster="fotos/fortportal/poster/2026%20Fort%20Portal%20Uganda%20-%2012%20van%2018.mp4.jpg" preload="none" style="aspect-ratio:1280/720">
+          <source src="fotos/fortportal/2026%20Fort%20Portal%20Uganda%20-%2012%20van%2018.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:fortportal -->
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 2: Fort Portal → Queen Elizabeth NP ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Fort Portal → Queen Elizabeth NP</strong>
+      <span>14 juli · ±120 km · 3 uur · Roos sluit een dag later aan</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 3 — QUEEN ELIZABETH NP
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="queenelizabeth">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-3"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">3</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">14 – 18 juli · 4 nachten</p>
+        <h2>Queen Elizabeth NP</h2>
+        <p class="loc-lodge"><strong>Katara Lodge</strong> (noord, 3n) · <strong>Embogo Lodge</strong> Ishasha (1n)</p>
+        <span class="roos-badge">&#9679; met Roos, Yuri &amp; Zaja</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Het grote safaripark van de reis, van de open vlaktes van Kasenyi via het Kazinga Kanaal tot de Ishasha-sector in het zuiden. Hier sloten Roos, Yuri en Zaja weer bij ons aan. Drie nachten sliepen we in Katara Lodge op de rand van de Grote Riftvallei, een lodge van de nicht van Yuri: Uganda is klein als je de juiste mensen kent. Daarna nog één nacht in Embogo Lodge in Ishasha.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">met Roos, Yuri &amp; Zaja</span>
+      <span class="chip gold">&#9733; luipaard Kasenyi</span>
+      <span class="chip gold">&#9733; chimptrekking Kyambura · 16 jul</span>
+      <span class="chip">Odette + Timothy + Roos</span>
+      <span class="chip">Yuri past op de kinderen</span>
+      <span class="chip gold">&#9733; safari Kasenyi</span>
+      <span class="chip gold">&#9733; boottocht Kazinga</span>
+      <span class="chip">nijlpaarden &amp; olifanten</span>
+    </div>
+
+    <!-- DAGBOEK: queenelizabeth -->
+    <div class="lodge-grid drie fade">
+      <a class="lodge-kaart" href="https://ugandawildlife.org/national-parks/queen-elizabeth-national-park/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/queenelizabeth/park.jpg" alt="Queen Elizabeth National Park" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Queen Elizabeth NP ↗</span>
+          <span class="lodge-domain">ugandawildlife.org</span>
+          <span class="lodge-desc">1.978 km² · 95+ zoogdieren · 600+ vogelsoorten · klimmende leeuwen in Ishasha · Kazinga Kanaal met honderden nijlpaarden en krokodillen.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://kataralodge.com/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/katara.jpg" alt="Katara Lodge met uitzicht over de Grote Riftvallei" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Katara Lodge ↗</span>
+          <span class="lodge-domain">kataralodge.com</span>
+          <span class="lodge-desc">Op de rand van de Grote Riftvallei met ononderbroken uitzicht over de savanne, Lake Edward en de Virunga's. Een van de mooiste plekken van de hele reis.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://embogolodgesuganda.org/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/embogo.jpg" alt="Embogo Lodge in de Ishasha-sector" loading="lazy" style="object-position:50% 75%">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Embogo Lodge ↗</span>
+          <span class="lodge-domain">embogolodgesuganda.org</span>
+          <span class="lodge-desc">1 km van de Ishasha Gate, midden in het territorium van de klimmende leeuwen.</span>
+        </div>
+      </a>
+    </div>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <p>Vier dagen waarin de savanne zich van haar mooiste kant liet zien.</p>
+        <h4 class="dag-kop">dinsdag 14 juli</h4>
+        <p>De rit van Ndali naar Katara verliep voorspoedig, met een stop midden op de evenaar en onderweg al de eerste olifanten. Bij Katara lunchten we met uitzicht over de savanne en hielden we het verder rustig: zwemmen, eten en vroeg naar bed, want de volgende ochtend wachtte de eerste safari.</p>
+        <h4 class="dag-kop">woensdag 15 juli</h4>
+        <p>Die ochtend begon vroeg. Ontbijt om zes uur, om zeven uur bij de Shell om onze ranger Lubega te ontmoeten, de plaatselijke verzamelplek voor iedereen die de Kasenyi-sector in wil. Bij de ingang moesten we eerst de permits regelen, dat duurde zo lang dat we wel een uur langer in bed hadden kunnen blijven liggen. Eenmaal het park in werd al snel duidelijk waarom het de moeite waard was: olifanten in de verte, pumba's, een Ugandese kob, buffels, waterbokken, een monitor lizard die rustig langs de weg liep, een groep gieren onderweg naar een kill, twee leeuwen inclusief een leeuwenkus, en een luipaard verstopt in een boom. Het absolute hoogtepunt was een olifant die we ruim een half uur volgden terwijl hij at, dronk, stof gooide en zijn behoefte deed. Wat zijn ze magisch.</p>
+        <p>Terug in Katara, tijdens de lunch, kwamen Roos, Yuri en Zaja eindelijk aan, na oponthoud door een lekke band. Vooral Zeline en Zaja vlogen elkaar in de armen.</p>
+        <p>Diezelfde middag gingen we met z'n allen terug het park in, weer met Lubega en een driver, samen een top team, dit keer in een grote open wagen. We troffen een rondlopende luipaard aan die we een tijdje gevolgd hebben. Daarna zagen we aan de ene kant van de weg een jonge leeuw die net een baby pumba had gevangen en op zat te eten, en aan de andere kant een prachtige olifant. Meer omringd door bijzondere dieren kun je bijna niet zijn. Na afloop nog getankt voor de volgende lange rit en de bandenspanning gecontroleerd, waarbij een schroef in de linkerachterband opdook. Gelukkig op tijd gezien en meteen opgelost bij de handige mechanics die bij elk tankstation aanwezig zijn.</p>
+        <h4 class="dag-kop">donderdag 16 juli</h4>
+        <p>De volgende dag stond de chimptrekking in de Kyambura Gorge op het programma, met Odette, Timothy en Roos. Weer vroeg op, om zeven uur bij de ingang, die bleek pas om acht uur open te gaan. Geen slechte plek om op te wachten: een schitterend uitzicht over het honderd meter diepe ravijn, midden in de savanne, ooit uitgesleten door de rivier de Kyambura in de bodem van de Grote Riftvallei. Beneden aangekomen zagen we al snel een jonge chimpansee met zijn moeder en broertje of zusje in de boom, en verderop een oudere, voormalige leider van de groep die hoog in een boom zat te chillen, tot een olifant zijn rust kwam verstoren. Tussen die twee dieren staan was een bijzonder moment. De trekking eindigde met een lange wandeling achter de oude chief aan, waarbij we stopten zodra hij stopte om de afstand te bewaren. De beste stopdans ooit.</p>
+        <p>Aan het eind van de middag, na een snelle duik in het zwembad, stapten we met de hele groep op de boot voor een privétocht over het Kazinga Kanaal. Nijlpaarden bij de vleet, het kanaal heeft een van de hoogste dichtheden nijlpaarden van heel Afrika. Daarnaast een prachtige arend, ijsvogels en andere vogels, bavianen, een enkele nijlkrokodil en buffels. We waren bijna aan de overkant om terug te varen, toen we aan de andere kant een kudde olifanten zagen komen drinken, zo'n vijftien dieren inclusief meerdere baby's. Die wens stond nog open, dus voeren we terug voor dit magische moment. Precies op tijd om er nog een half uur bij te blijven. Het hoogtepunt van de tocht. Wat een show, live in een natuurfilm.</p>
+        <h4 class="dag-kop">vrijdag 17 juli</h4>
+        <p>Op de vierde dag verhuisden we in twee auto's naar Embogo Lodge in de Ishasha-sector, op zoek naar de beroemde klimmende leeuwen. De rit ging over de hoofdweg van het park, dus overal kon er iets opduiken. Het eerste stuk ging prima, het tweede stuk werd aanzienlijk hobbeliger. Bij aankomst kregen we de grootste lodge tot onze beschikking. 's Avonds gingen we op zoek naar de leeuwen in een auto met open dak. Het landschap hier was zwarter en meer verbrand dan de dagen ervoor, de parkrangers steken hier bewust delen van de savanne in brand om nieuwe grasgroei te stimuleren en het gebied open te houden voor de grazers. We zagen veel van dezelfde dieren, plus een hyena die we nog niet eerder gespot hadden, in een omgeving die daar wel bij paste. De boomklimmende leeuwen waar het gebied bekend om staat zaten er helaas niet bij. Later bleek dat er sowieso vrij weinig leeuwen in dit deel zitten, of dat ze schuw zijn met jongen. We kunnen niet altijd zoveel geluk hebben. Of zou het toch komen omdat Odette deze keer niet haar geluksoorbellen met olifantjes droeg?</p>
+      </div>
+    </div>
+
+    <!-- FOTOS:queenelizabeth (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2020%20van%2021.jpeg" alt="Een kudde olifanten met jongen komt drinken aan het Kazinga Kanaal" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%2021.jpeg" alt="Odette en Timothy midden op de evenaar" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%201.jpeg" alt="Het zwembad van Katara Lodge met uitzicht over de savanne" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.2217"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2021b.jpeg" alt="Een blauwkopagame in de tuin van Katara" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%204%20van%2021.jpeg" alt="Een buffel in het hoge gras van Kasenyi" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%205%20van%2021.jpeg" alt="Twee nijlpaarden op het droge onder een kandelaarboom" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%206%20van%2021.jpeg" alt="Een leeuw in de verte op de savanne van Kasenyi" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%207%20van%2021.jpeg" alt="De olifant die we ruim een half uur volgden" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%208%20van%2021.jpeg" alt="Een monitor lizard in een modderplas langs de weg" loading="lazy"></div>
+      </div>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.4970"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%209%20van%2021.jpeg" alt="De luipaard van Kasenyi, zo dichtbij dat we de haren in zijn vacht zagen" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2011%20van%2021.jpeg" alt="Twee olifanten meten hun krachten in het avondlicht" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2012%20van%2021.jpeg" alt="Een olifant met enorme slagtanden" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2013%20van%2021.jpeg" alt="Uitzicht in de Kyambura Gorge in de ochtendnevel" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2015%20van%2021.jpeg" alt="De olifant die de chimpansee in de Kyambura Gorge kwam storen" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2016%20van%2021.jpeg" alt="Een zeearend boven op een boom langs het Kazinga Kanaal" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2019b.jpeg" alt="Een baviaan met haar jong langs het water" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%2018%20van%2021.jpeg" alt="Met de hele groep op de boot over het Kazinga Kanaal" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
+        <video controls playsinline poster="fotos/queenelizabeth/poster/2026%20Queen%20Elizabeth%20-%202.mp4.jpg" preload="none" style="aspect-ratio:1280/720">
+          <source src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%202.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-slot fade">
+        <video controls playsinline poster="fotos/queenelizabeth/poster/2026%20Queen%20Elizabeth%20-%201%20van%201.mp4.jpg" preload="none" style="aspect-ratio:1280/720">
+          <source src="fotos/queenelizabeth/2026%20Queen%20Elizabeth%20-%201%20van%201.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:queenelizabeth -->
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 3: Queen Elizabeth → Bwindi ═══════ -->
+<div class="transfer-blok" id="onderweg-bwindi">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Ishasha → Bwindi</strong>
+      <span>18 juli · ±200 km · 4–5 uur · bergachtig</span>
+    </div>
+    <div class="onderweg">
+    <h3 class="fade">Onderweg naar Bwindi</h3>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <h4 class="dag-kop">zaterdag 18 juli</h4>
+        <p>Na het ontbijt vertrokken we met twee auto's richting Bwindi. De eerste vertraging kwam niet van de auto maar van een olifant, die wel heel dicht bij de weg bleef staan en duidelijk geen haast had. Even later wilde een hele kudde oversteken en stonden er olifanten aan alle kanten. Wachten dus, en ondertussen genieten.</p>
+        <p>Daarna veranderde het landschap geleidelijk: van savanne naar groener, bewoond en uiteindelijk bergachtig land. Bij een tankstation stopten we om te tanken, want je weet nooit wanneer je vanaf hier de volgende fatsoenlijke tegenkomt. Onze auto had daar alleen geen zin meer om te starten. Voor de tweede keer deze reis gaf de accu het op. Gelukkig was er een mechanic aanwezig die kon helpen. Eerst werd de accuaansluiting hersteld, daarna bleek er ook olie weg te lekken. De oorzaak: een schroefje dat was gedicht met een stuk karton in plaats van een goede afdichting, waardoor ongeveer drie liter olie was verdwenen. Hij zette er een echte ring op, vulde de olie bij en na ruim een uur konden we door. De meiden hadden zich intussen prima vermaakt met muziek en elkaar, en waren een ware attractie voor de schoolkinderen achter het tankstation en voorbijgangers.</p>
+        <p>Verder de bergen in stopten we om de auto's af te laten koelen van het klimmen. Yuri haalde zijn drone tevoorschijn en vanuit de lucht zag je pas echt hoe dik en groen het bos is. De bomen werden steeds groter en de bewoonde wereld bleef steeds verder achter ons. Zo kwamen we aan bij Agandi Lodge, onze gorilla-lodge, met een prachtig uitzicht over Bwindi.</p>
+      </div>
+    </div>
+    <!-- FOTOS:onderweg (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/onderweg/2026%20Rit%20naar%20Bwindi%20-%201%20van%205.jpeg" alt="Olifant vlak langs de weg, onderweg naar Bwindi" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/onderweg/2026%20Rit%20naar%20Bwindi%20-%202%20van%205.jpeg" alt="Jongen met een houten transportfiets vol bananen" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/onderweg/2026%20Rit%20naar%20Bwindi%20-%203%20van%205.jpeg" alt="De mechanic vult de olie bij op het tankstation" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/onderweg/2026%20Rit%20naar%20Bwindi%20-%204%20van%205.jpeg" alt="Het bord van Bwindi Impenetrable National Park tussen de bananenplanten" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
+        <video controls playsinline poster="fotos/onderweg/poster/2026%20Rit%20naar%20Bwindi%20-%205%20van%205.mp4.jpg" preload="none" style="aspect-ratio:1280/720">
+          <source src="fotos/onderweg/2026%20Rit%20naar%20Bwindi%20-%205%20van%205.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:onderweg -->
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 4 — BWINDI
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="bwindi">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-4"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">4</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">18 – 19 juli · 1 nacht</p>
+        <h2>Bwindi</h2>
+        <p class="loc-lodge"><strong>Agandi Lodge</strong> · Silverback Cottage · aan de rand van het oerwoud</p>
+        <span class="roos-badge">&#9679; met Roos, Yuri &amp; Zaja</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Bwindi Impenetrable Forest is meer dan 25.000 jaar oud en het thuis van bijna de helft van alle berggorilla's op aarde. We sliepen één nacht in Agandi Lodge, aan de rand van het oerwoud en met een mooi uitzicht over Bwindi. Odette, Timothy en Yuri gingen op gorilla-trekking, Rosalie en Zeline bleven bij Roos.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">met Roos, Yuri &amp; Zaja</span>
+      <span class="chip gold">&#9733; gorilla-trekking · 19 jul</span>
+      <span class="chip">Odette + Timothy + Yuri</span>
+      <span class="chip">oerwoud</span>
+      <span class="chip">berggorilla's</span>
+    </div>
+
+    <div class="lodge-grid fade">
+      <a class="lodge-kaart" href="https://ugandawildlife.org/national-parks/bwindi-impenetrable-national-park/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/bwindi/park.jpg" alt="Bwindi Impenetrable National Park" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Bwindi Impenetrable NP ↗</span>
+          <span class="lodge-domain">ugandawildlife.org</span>
+          <span class="lodge-desc">321 km² · ruim 25.000 jaar oud · 459 berggorilla's · 350+ vogelsoorten · een van Afrika's meest biodiverse regenwouden.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://www.agandiuganda.com/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/agandi.jpg" alt="Agandi Lodge aan de rand van het oerwoud van Bwindi" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Agandi Lodge ↗</span>
+          <span class="lodge-domain">agandiuganda.com</span>
+          <span class="lodge-desc">Eco-lodge op 2.300 m met 360° panorama over het oerwoud en de vulkaanketen.</span>
+        </div>
+      </a>
+    </div>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <h4 class="dag-kop">zondag 19 juli</h4>
+        <p>Op de dag van de gorilla-trekking moesten we weer vroeg op: ontbijt om 6.45 uur, vertrek om 7.15 uur. Gelukkig lag de ingang van het park dicht bij de lodge. Bij de Ruhija-gate begon de dag met een dans en optreden van de Batwa, een stam die vroeger in het bos leefde maar daar niet meer mag wonen. De trekking is nu een belangrijk deel van hun inkomen en een manier om hun cultuur levend te houden. Daarna vertelde de ranger zijn verhaal en werden de groepen ingedeeld. Wij kwamen bij de Happy-groep, op zoek naar silverback Happy en zijn familie.</p>
+        <p>Het werd een uitdagende hike. De spotters hadden moeite om de groep te vinden, dus wachtten we een uur terwijl werd bepaald of we links of rechts verder zouden afdalen. Het werd links. Ze waren goed verstopt, maar de beloning was groot toen ze eindelijk in beeld kwamen. Eerst een moeder met een babygorilla van pas een paar dagen oud, zo schattig dat zelfs het hoofdje nog te zwaar was om goed te bewegen. Daarna de rest van de groep. Happy zelf lag rustig een stukje achter de rest te chillen, er waren minstens twee andere vrouwtjes bij en drie jonge gorilla's die de show stalen. Ze waren onophoudelijk met elkaar aan het spelen, een genot om naar te kijken. Zo'n bezoek mag maximaal een uur duren, en dat uur vloog voorbij. Tegen het einde werd er wat meer ruimte gemaakt zodat we Happy beter konden zien. Dat vond hij genoeg: één keer kwam hij met een hoop kabaal op ons af gestormd, omdat hij vond dat we dichtbij genoeg waren gekomen. Zie dan nog maar eens netjes stil te blijven staan. Even schrikken, maar ook indrukwekkend, en meteen duidelijk wie de baas is in de jungle.</p>
+        <p>Wat een geweldige tijd om met deze dieren door te mogen brengen.</p>
+        <p>Daarna moest het hele stuk ook weer terug omhoog. Eerst nog verder naar beneden, 240 meter onder het startpunt, en na een korte uitleg van de ranger de steile klim weer op. In totaal waren we zo'n zeven uur weg. Yuri, die al zeven keer eerder bij de gorilla's was geweest, noemde het de langste en zwaarste tocht tot nu toe. Rond drie uur waren we terug bij de lodge. Snel lunchen, alles inpakken en door naar Lake Bunyonyi.</p>
+        <p>Odette: <em>'Vooral het spelen van de kleintjes was zo leuk om te zien, daar kon ik de hele dag wel naar blijven kijken.'</em></p>
+        <p>Ondertussen hadden Rosalie en Zeline een heerlijke dag bij Roos, vlak bij de bosrand van Agandi Lodge: lekker knutselen, met de haren tutten, ontbijten en chillen.</p>
+      </div>
+    </div>
+
+    <!-- FOTOS:bwindi (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.7778"><img src="fotos/bwindi/2026%20Bwindi%20-%2015%20van%2016.jpeg" alt="Een gorilla kijkt ons aan tussen de bladeren" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bwindi/2026%20Bwindi%20-%201%20van%2016.jpeg" alt="Drie L'Hoest-meerkatten aan de rand van het bos bij Agandi" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bwindi/2026%20Bwindi%20-%202%20van%2016.jpeg" alt="Klimmen en klauteren door het dichte oerwoud" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bwindi/2026%20Bwindi%20-%203%20van%2016.jpeg" alt="Een moeder met haar baby van pas een paar dagen oud" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bwindi/2026%20Bwindi%20-%206%20van%2016.jpeg" alt="De silverback ligt rustig te chillen tussen de varens" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bwindi/2026%20Bwindi%20-%208%20van%2016.jpeg" alt="Een jonge gorilla eet van een varen" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.7778"><img src="fotos/bwindi/2026%20Bwindi%20-%209%20van%2016.jpeg" alt="Gorillahanden om een tak" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.7778"><img src="fotos/bwindi/2026%20Bwindi%20-%2012%20van%2016.jpeg" alt="Close-up van een gorilla achter de takken" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.7778"><img src="fotos/bwindi/2026%20Bwindi%20-%2014%20van%2016.jpeg" alt="Een gorilla zit tussen de bomen van het oerwoud" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bwindi/2026%20Bwindi%20-%2016%20van%2016.jpeg" alt="Blije gezichten in de auto na de trekking" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
+        <video controls playsinline poster="fotos/bwindi/poster/2026%20Bwindi%20-%204%20van%2016.mp4.jpg" preload="none" style="aspect-ratio:848/480">
+          <source src="fotos/bwindi/2026%20Bwindi%20-%204%20van%2016.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:bwindi -->
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 4: Bwindi → Lake Bunyonyi ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Bwindi → Lake Bunyonyi</strong>
+      <span>19 juli · een middag rijden · bergachtig</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 5 — LAKE BUNYONYI
+══════════════════════════════════════════════ -->
+<section class="locatie roos-locatie" id="bunyonyi">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-5"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge roos">5</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">19 – 23 juli · 4 nachten</p>
+        <h2>Lake Bunyonyi</h2>
+        <p class="loc-lodge"><strong>Sharp Island Lodge</strong> (1n) · <strong>Birdnest Resort</strong> (3n)</p>
+        <span class="roos-badge">&#9679; afscheid van Roos, Yuri &amp; Zaja · 22 jul</span>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Een van de mooiste meren van Uganda, bezaaid met groene eilandjes. Een daarvan is Habunyaga, 'het eiland van mensen die niet betalen', waar Roos en Yuri eco-lodges willen bouwen. We sliepen één nacht op Sharp Island en daarna drie nachten bij Birdnest Resort aan de oever. Hier namen we op 22 juli afscheid van Roos, Yuri en Zaja.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip roos">afscheid van Roos, Yuri &amp; Zaja · 22 jul</span>
+      <span class="chip">eiland</span>
+      <span class="chip">rust</span>
+      <span class="chip">zwemmen</span>
+    </div>
+
+    <!-- DAGBOEK: bunyonyi -->
+    <div class="lodge-grid drie fade">
+      <div class="lodge-kaart">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/bunyonyi/yuri-eiland.jpg" alt="Zonsopkomst boven Habunyaga, het eiland van Yuri op Lake Bunyonyi" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Habunyaga</span>
+          <span class="lodge-domain">Lake Bunyonyi</span>
+          <span class="lodge-desc">'Het eiland van mensen die niet betalen', het privé-eiland van Yuri, recht tegenover Sharp Island Lodge. Toekomstige plek voor eco-lodges.</span>
+        </div>
+      </div>
+      <a class="lodge-kaart" href="https://www.sharpislandlodge.com/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/sharpislodge.jpg" alt="Sharp Island Lodge op een eiland in Lake Bunyonyi" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Sharp Island Lodge ↗</span>
+          <span class="lodge-domain">sharpislandlodge.com</span>
+          <span class="lodge-desc">Een privé-eiland op Lake Bunyonyi, een botanische tuin omgeven door water.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://birdnestresort.com/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/birdnest.jpg" alt="Birdnest Resort met rieten daken aan de oever van Lake Bunyonyi" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Birdnest Resort ↗</span>
+          <span class="lodge-domain">birdnestresort.com</span>
+          <span class="lodge-desc">Aan de oever van Lake Bunyonyi, met zwembad, sauna en uitzicht over het meer.</span>
+        </div>
+      </a>
+    </div>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <h4 class="dag-kop">zondag 19 juli</h4>
+        <p>Lake Bunyonyi verwelkomde ons op zijn mooist: een grote wolk waar de zon in stralen achter vandaan kwam. We parkeerden de auto's op een afgesloten parkeerplaats en voeren met een bootje naar Sharp Island, vlak bij Habunyaga, het eiland van Yuri.</p>
+        <p>De lodge bleek erg klein. De klamboes pasten niet goed over het bed, Zeline moest bij ons in bed en de douche was of loeiheet of ijskoud, terwijl we na zo'n lange dag juist naar een goede douche hadden uitgekeken. De mensen waren vriendelijk en het eten was prima, maar na een matige nacht besloten we de rest van de nachten ergens anders door te brengen. Dat werd Birdnest, en dat bleek een gouden keuze.</p>
+        <h4 class="dag-kop">maandag 20 juli</h4>
+        <p>Maar eerst naar Habunyaga. Roos gaf ons een rondleiding over het eiland om te laten zien wat waar moet komen, van het eerste huisje tot de yogaplek. Een prachtig eiland met veel potentie, op een schitterende plek. Na de lunch gingen de papa's zwemmen met de meiden, terwijl Roos en Odette met touw in de weer gingen om het eerste huisje uit te meten, inclusief de inrichting. Chef Herbert, voor de grap ook wel chef Herbs, moest eraan te pas komen om de palen voor het touw stevig in de droge grond te krijgen. Het eindresultaat mocht er zijn: nu gaat het plan pas echt leven.</p>
+        <p>Omdat we voor het donker terug moesten varen, gingen we op tijd naar Birdnest om in te checken, op te frissen en te eten. Voor het eerst deze vakantie een menukaart waar we echt uit konden kiezen, in plaats van geen, één of twee opties die je na de maaltijd alvast voor de volgende moest doorgeven. En een ruime kamer met twee bedden die groot genoeg waren. De spierpijn van de gorilla-trekking viel gelukkig mee, dus konden we rustig nagenieten en napraten over alles wat we hadden meegemaakt.</p>
+        <h4 class="dag-kop">dinsdag 21 juli</h4>
+        <p>De volgende ochtend deden we rustig aan. Goed geslapen, een ontbijtbuffet, daarna schommelen en een praatje met de tekenaars bij het resort. Zo ontstond het idee om ook onze eigen foto's te laten natekenen voor aan de muur thuis. Het werd een drieluik met prachtige tekeningen: een olifant, de luipaard en een gorilla. Daarna naar het zwembad, waar Roos, Yuri en Zaja ook naartoe kwamen om te chillen, te lunchen en de sauna te gebruiken.</p>
+        <p>Rond vier uur voeren we met z'n allen weer naar het eiland van Yuri om daar te eten. Roos en Odette zochten nog een goede plek voor de tijdelijke wc en douche en spanden opnieuw een touw om die te markeren. Chef Herbert was intussen al de hele dag bezig met het gerecht van de avond: crayfish pasta. De kreeftjes zelf gevangen in het meer, dat er vol mee zit, gekookt en gepeld, en dat allemaal op een buitenvuurtje met stenen. We hebben met z'n allen heerlijk gesmuld, ook al ging er slagroom door in plaats van de melk die er eigenlijk in hoorde. Daarna terug naar het resort en lekker op tijd naar bed.</p>
+        <h4 class="dag-kop">woensdag 22 juli</h4>
+        <p>Ook de laatste dag begon met chillen bij Birdnest, tot Roos, Yuri en Zaja ons kwamen ophalen voor een bezoek aan het huis van chef Herbert. Na een heuvelachtige wandeling werden we opgewacht door zijn gezin en de hele gemeenschap, en onthaald met traditionele dans, bushera (een lokale, zelfgemaakte alcoholische drank) en een rondleiding door zijn huis. Ze legden precies uit hoe de bushera gemaakt wordt, en hoe ze van riet de mandjes en kleden vlechten. Natuurlijk hebben we er wat souvenirs gekocht, zo konden we hen meteen een beetje helpen. Een bijzondere en heel gastvrije middag.</p>
+        <p>Terug bij Birdnest was het tijd om afscheid te nemen van Roos, Yuri en Zaja, en dat ging niet zonder tranen. Gelukkig is het maar tot december: dan zien we jullie weer! De laatste avond genoten we nog van het diner bij Birdnest, en de volgende ochtend gingen we op pad naar Lake Mburo.</p>
+      </div>
+    </div>
+
+    <!-- FOTOS:bunyonyi (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%201%20van%2015.jpeg" alt="Lake Bunyonyi bij aankomst, met zonnestralen achter een grote wolk" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%202%20van%2015.jpeg" alt="Rosalie en Zeline bij de kaart van Lake Bunyonyi" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%203%20van%2015.jpeg" alt="Timothy en Zeline in het bootje, op weg naar Habunyaga" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%204%20van%2015.jpeg" alt="Zeline en Zaja sjouwen een bankje over het eiland van Yuri" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%205%20van%2015.jpeg" alt="De papa's klaar om te zwemmen, met zwembanden om" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%206%20van%2015.jpeg" alt="Zwemmen in Lake Bunyonyi, met een kano op de achtergrond" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%207%20van%2015.jpeg" alt="De bootjes bij de aanlegplaats aan de oever" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%209%20van%2015.jpeg" alt="Schommelen bij Birdnest" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.5625"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%208%20van%2015.jpeg" alt="De crayfish van chef Herbert, gekookt op een buitenvuurtje" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%2010%20van%2015.jpeg" alt="Odette en Rosalie in het bootje naar het eiland" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%2011%20van%2015.jpeg" alt="Yuri met Zeline en Zaja op schoot" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%2012%20van%2015.jpeg" alt="Zeline op de schouders, met uitzicht over het meer" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%2013%20van%2015.jpeg" alt="Op bezoek bij chef Herbert, zijn gezin en de gemeenschap" loading="lazy"></div>
+      </div>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%2015%20van%2015.jpeg" alt="Een dikke knuffel bij het afscheid van Roos, Yuri en Zaja" loading="lazy"></div>
+      </div>
+      <div class="video-slot fade">
+        <video controls playsinline poster="fotos/bunyonyi/poster/2026%20Lake%20Bunyonyi%20-%2014%20van%2015.mp4.jpg" preload="none" style="aspect-ratio:1280/720">
+          <source src="fotos/bunyonyi/2026%20Lake%20Bunyonyi%20-%2014%20van%2015.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:bunyonyi -->
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 5: Lake Bunyonyi → Lake Mburo ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Lake Bunyonyi → Lake Mburo</strong>
+      <span>23 juli · ±210 km · 5 uur</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 6 — LAKE MBURO
+══════════════════════════════════════════════ -->
+<section class="locatie" id="mburo">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-6"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge">6</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">23 – 24 juli · 1 nacht</p>
+        <h2>Lake Mburo</h2>
+        <p class="loc-lodge"><strong>Hyena Hill Lodge</strong></p>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Het kleinste savannepark van de route, en juist daarom intiem. Omdat er geen olifanten zijn, mag je hier ook te voet op safari. In één middag zagen we giraffen met hun jongen, zebra's, kobs, buffels en bavianen. We sliepen één nacht in Hyena Hill Lodge, aan de rand van het park.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip gold">&#9733; wandelsafari · giraffen</span>
+      <span class="chip">zebra's &amp; kobs</span>
+      <span class="chip">buffels &amp; bavianen</span>
+      <span class="chip">rust</span>
+    </div>
+
+    <!-- DAGBOEK: mburo -->
+    <div class="lodge-grid fade">
+      <a class="lodge-kaart" href="https://ugandawildlife.org/national-parks/lake-mburo/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/mburo/park.jpg" alt="Lake Mburo National Park" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Lake Mburo NP ↗</span>
+          <span class="lodge-domain">ugandawildlife.org</span>
+          <span class="lodge-desc">370 km² · Uganda's enige impalabevolking · zebra's, nijlpaarden & luipaarden · 315+ vogelsoorten · wandelsafari mogelijk door afwezigheid van olifanten.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://www.hyenahilllodge.com/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/hyenahill.jpg" alt="Hyena Hill Lodge bij Lake Mburo National Park" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Hyena Hill Lodge ↗</span>
+          <span class="lodge-domain">hyenahilllodge.com</span>
+          <span class="lodge-desc">Aan de rand van het park bij Sanga Gate, uitzicht over Lake Mburo National Park.</span>
+        </div>
+      </a>
+    </div>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <h4 class="dag-kop">donderdag 23 juli</h4>
+        <p>De weg naar Lake Mburo was zoals we inmiddels gewend waren: hobbelig op de stukken zonder asfalt en prima op de stukken met. Zeline zat daarom weer veel voorin, om niet over te hoeven geven. Op het laatste stuk naar het park vroegen we ons steeds af of we nou op een autoweg of op een boda boda-pad reden. Onderweg zagen we heel veel prachtige Ankole-koeien, met hun enorme hoorns. En ineens waren daar ook zebra's, steeds meer.</p>
+        <p>We kwamen aan bij Hyena Hill Lodge, checkten in en gingen aan het eind van de middag op onze laatste safari in de savanne. En dit keer werd het zelfs een wandelsafari! Met de ranger gingen we eerst met de auto op zoek naar giraffen. Zodra we ze zagen mochten we uitstappen en wandelden we naar en met de giraffen. Er waren ook jongen bij, die dicht bij hun moeder bleven. De moeder was waakzaam en tegelijk nieuwsgierig naar ons. Vooral Zeline mocht van haar rustig wat dichterbij komen.</p>
+        <p>Daarna de zebra's: schuwer en sneller weg, maar zo van dichtbij prachtig om te zien. Er waren ook kobs, buffels en bavianen. Kijk maar eens naar de foto met de handjes van Zeline. En toen we wegreden, werden we nog getrakteerd op een zebra die flinke jeuk had aan zijn billen. Een nachtsafari lieten we daarna schieten: de luipaard hadden we in Queen Elizabeth al van heel dichtbij gezien.</p>
+      </div>
+    </div>
+
+    <!-- FOTOS:mburo (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%201%20van%209.jpeg" alt="Ankole-koeien met hun enorme hoorns onder een boom" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%202%20van%209.jpeg" alt="Een groene meerkat met haar jong langs de weg" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%203%20van%209.jpeg" alt="Zeline tussen de giraffen tijdens de wandelsafari" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%204%20van%209.jpeg" alt="Rosalie geknield voor twee giraffen tijdens de wandelsafari" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%205%20van%209.jpeg" alt="Rosalie en Zeline bekijken een schedel op de verbrande grond" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%206%20van%209.jpeg" alt="Zebra's tijdens de wandelsafari" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%207%20van%209.jpeg" alt="Twee kinderhandjes in het zand naast een grote handafdruk" loading="lazy"><p class="foto-cap">De handjes van Zeline naast de handafdruk van een baviaan</p></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.9745"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%208%20van%209.jpeg" alt="Een jonge groene meerkat speelt naast zijn moeder" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/mburo/2026%20Lake%20Mburo%20-%209%20van%209.jpeg" alt="Een waterbok langs de weg" loading="lazy"></div>
+      </div>
+      <div class="video-slot staand fade">
+        <video controls playsinline poster="fotos/mburo/poster/2026%20Lake%20Mburo%20-%201%20van%201.mp4.jpg" preload="none" style="aspect-ratio:720/1280">
+          <source src="fotos/mburo/2026%20Lake%20Mburo%20-%201%20van%201.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:mburo -->
+
+  </div>
+</section>
+
+<!-- ═══════ TRANSFER 6: Lake Mburo → Entebbe ═══════ -->
+<div class="transfer-blok">
+  <div class="wrap">
+    <div class="transfer-info fade">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <strong>Lake Mburo → Entebbe</strong>
+      <span>24 juli · ±215 km · 5 uur · laatste lange rit</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STOP 7 — ENTEBBE
+══════════════════════════════════════════════ -->
+<section class="locatie" id="entebbe">
+  <div class="wrap">
+    <div class="chapter-map fade" id="chaptermap-7"></div>
+
+    <div class="loc-header fade">
+      <div class="stop-badge">7</div>
+      <div class="loc-title-area">
+        <p class="loc-meta">24 – 26 juli · 2 nachten</p>
+        <h2>Entebbe</h2>
+        <p class="loc-lodge"><strong>Hotel Horizon</strong> · aan het Victoriameer · vlak bij de luchthaven</p>
+      </div>
+    </div>
+
+    <div class="loc-tekst fade">
+      <p>Entebbe ligt aan de oever van het Victoriameer, het grootste meer van Afrika. In de moerassen rond het meer leeft de schoenbekooievaar, een van de meest bijzondere vogels ter wereld. De laatste twee nachten sliepen we in Hotel Horizon, daarna vlogen we naar huis, net als de heenreis via Nairobi: met Kenya Airways naar Kenia en met KLM door naar Amsterdam.</p>
+    </div>
+
+    <div class="chips fade">
+      <span class="chip">Victoriameer</span>
+      <span class="chip">terugvlucht 26 jul</span>
+      <span class="chip">Kenya Airways → KLM via Nairobi</span>
+    </div>
+
+    <!-- DAGBOEK: entebbe -->
+    <div class="lodge-grid fade">
+      <a class="lodge-kaart" href="https://nl.wikipedia.org/wiki/Victoriameer" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/entebbe/schoenbekooievaar.jpg" alt="Een schoenbekooievaar in het moeras bij het Victoriameer" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Victoriameer ↗</span>
+          <span class="lodge-domain">nl.wikipedia.org</span>
+          <span class="lodge-desc">Het grootste meer van Afrika · 69.484 km² · bron van de Nijl · habitat van de iconische schoenbekooievaar.</span>
+        </div>
+      </a>
+      <a class="lodge-kaart" href="https://hotelhorizonug.com/" target="_blank" rel="noopener">
+        <div class="lodge-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          <img src="fotos/lodges/horizon.jpg" alt="Hotel Horizon in Entebbe, aan het Victoriameer" loading="lazy">
+        </div>
+        <div class="lodge-info">
+          <span class="lodge-naam">Hotel Horizon ↗</span>
+          <span class="lodge-domain">hotelhorizonug.com</span>
+          <span class="lodge-desc">Boutique hotel in Entebbe, 5 km van de luchthaven, met dakterras en uitzicht op het Victoriameer.</span>
+        </div>
+      </a>
+    </div>
+    <div class="dagboek-sectie fade">
+      <p class="eyebrow">Dagboek</p>
+      <div class="dagboek-inhoud">
+        <h4 class="dag-kop">vrijdag 24 juli</h4>
+        <p>De volgende ochtend reden we na het ontbijt door naar onze laatste slaapplek: Hotel Horizon in Entebbe, met een zwembad waar we nog even konden bijkomen van alle indrukken van de afgelopen weken. Weken waarin de muggen ons niet hadden gevonden, maar hier gingen ze helaas helemaal los, vooral bij Zeline.</p>
+        <h4 class="dag-kop">zaterdag 25 juli</h4>
+        <p>De allerlaatste safari deden we hier: op zoek naar de schoenbekooievaar in het Mabamba-moeras, met gids David. Daar konden we nog met onze eigen auto naartoe: als compensatie voor alle pech mochten we de Prado een dag later inleveren, zonder extra kosten. Eerst een uur varen naar het moeras, waar we overstapten op een ander bootje dat met stokken werd voortgeduwd. Al vrij snel vonden we er een, rustig op zijn nest, zijn veren aan het schikken. Wat een grote, prehistorisch ogende vogel. Daarna lekker bij het zwembad liggen.</p>
+        <h4 class="dag-kop">zondag 26 juli</h4>
+        <p>Op de laatste dag hadden we nog tijd om naar het winkelcentrum te lopen voor de laatste souvenirs en nog één keer bij het zwembad te liggen, voordat de taxi kwam om ons naar het vliegveld te brengen.</p>
+        <p>Wat een bijzondere, onvergetelijke en avontuurlijke vakantie was dit, waarin we maar liefst 1.458 kilometer door Uganda hebben gereden!</p>
+      </div>
+    </div>
+
+    <!-- FOTOS:entebbe (gemaakt door tools/galerij.py, niet met de hand aanpassen) -->
+    <div class="fotos-sectie">
+      <p class="eyebrow fade">Foto's</p>
+      <div class="foto-rij hoofd fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/entebbe/2026%20Entebbe%20-%201%20van%207.jpeg" alt="Met z'n allen in het bootje door het Mabamba-moeras, met gids David" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/entebbe/2026%20Entebbe%20-%202%20van%207.jpeg" alt="Het bootje wordt met een stok voortgeduwd tussen de waterlelies" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/entebbe/2026%20Entebbe%20-%203%20van%207.jpeg" alt="Een paarse waterlelie uit het moeras" loading="lazy"></div>
+      </div>
+      <div class="foto-rij fade">
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/entebbe/2026%20Entebbe%20-%204%20van%207.jpeg" alt="De schoenbekooievaar, rustig tussen het riet in het Mabamba-moeras" loading="lazy"></div>
+        <div class="foto-slot" style="--r:0.7500"><img src="fotos/entebbe/2026%20Entebbe%20-%206%20van%207.jpeg" alt="Zeline speurt met de verrekijker over het moeras" loading="lazy"></div>
+        <div class="foto-slot" style="--r:1.3333"><img src="fotos/entebbe/2026%20Entebbe%20-%207%20van%207.jpeg" alt="Aalscholvers en een zilverreiger tussen de papyrus" loading="lazy"></div>
+      </div>
+      <div class="video-slot staand fade">
+        <video controls playsinline poster="fotos/entebbe/poster/2026%20Entebbe%20-%205%20van%207.mp4.jpg" preload="none" style="aspect-ratio:720/1280">
+          <source src="fotos/entebbe/2026%20Entebbe%20-%205%20van%207.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!-- /FOTOS:entebbe -->
+
+  </div>
+</section>
+
+<!-- ═══════ HIGHLIGHTS ═══════ -->
+<section class="highlights">
+  <div class="wrap">
+    <p class="eyebrow fade">De hoogtepunten</p>
+    <h2 class="fade">Negen momenten die we nooit vergeten</h2>
+    <div class="hl-grid">
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><path d="M22 20c0-2.2-2.2-4-5-4"/></svg>
+        </div>
+        <h3>Roos, Yuri &amp; Zaja</h3>
+        <p>De hereniging met Roos en haar gezin in Kampala, en weken samen reizen door het land dat zij thuis noemen.</p>
+        <p class="hl-who">6 juli · Kampala · QENP · Bwindi · Bunyonyi</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h3>Ndere Troupe · Kampala</h3>
+        <p>8 juli. Een avond vol traditionele dans en muziek, met de beste levensles van de reis: stress? Schud met je billen. Aan het eind dansten we zelf mee.</p>
+        <p class="hl-who">Het gezin</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01"/><path d="M9 15c1 1 5 1 6 0"/></svg>
+        </div>
+        <h3>Chimpansees · Kibale</h3>
+        <p>12 juli. Door het dichte regenwoud van Kibale op zoek naar de chimpansees van Kanyanchu, waarvan er een bijna over Rosalies voeten liep.</p>
+        <p class="hl-who">Timothy · Rosalie</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9.5" r="1" fill="currentColor"/><circle cx="10.5" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14.5" r="1" fill="currentColor"/></svg>
+        </div>
+        <h3>Luipaard · Kasenyi</h3>
+        <p>15 juli. 's Ochtends verstopt in een boom, 's middags rondlopend en zo dichtbij dat we de haren in zijn vacht konden zien.</p>
+        <p class="hl-who">Het gezin · 's middags met Roos, Yuri &amp; Zaja</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01"/><path d="M8 15c1.5 1.5 6.5 1.5 8 0"/></svg>
+        </div>
+        <h3>Chimpansees · Kyambura</h3>
+        <p>16 juli. In het dramatische ravijn van Kyambura, dwars door Queen Elizabeth NP, voor de tweede ontmoeting met chimpansees.</p>
+        <p class="hl-who">Odette · Timothy · Roos</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18v-5a7 7 0 0 1 7-7h3a7 7 0 0 1 7 7v5"/><path d="M8 18v-3M15 18v-3"/><path d="M20 13c1.2 0 2 1.2 2 3s-.8 3-2 3"/><circle cx="16" cy="10" r=".8" fill="currentColor"/></svg>
+        </div>
+        <h3>Olifanten · Kazinga Kanaal</h3>
+        <p>16 juli. Vanaf de boot zagen we een kudde van zo'n vijftien olifanten met hun jongen komen drinken. We voeren terug en bleven er een half uur bij.</p>
+        <p class="hl-who">De hele groep</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="13" r="6"/><circle cx="9.5" cy="12" r="1" fill="currentColor"/><circle cx="14.5" cy="12" r="1" fill="currentColor"/><path d="M7 7c-1.5-1-2.5-.5-2.5 1M17 7c1.5-1 2.5-.5 2.5 1"/></svg>
+        </div>
+        <h3>Berggorilla's · Bwindi</h3>
+        <p>19 juli. Te voet het oerwoud in voor een uur bij een gorillafamilie: een van de meest bijzondere wildervaringen op aarde.</p>
+        <p class="hl-who">Odette · Timothy · Yuri</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </div>
+        <h3>Wandelsafari · Lake Mburo</h3>
+        <p>23 juli. Uit de auto en te voet de savanne in, tussen de giraffen met hun jongen en de zebra's.</p>
+        <p class="hl-who">Odette · Timothy · Rosalie · Zeline</p>
+      </div>
+      <div class="hl-card fade">
+        <div class="icoon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>
+        </div>
+        <h3>Schoenbekooievaar · Mabamba</h3>
+        <p>25 juli. Met gids David door het moeras, in een bootje dat met stokken werd voortgeduwd, tot we hem vonden: groot, rustig en prehistorisch.</p>
+        <p class="hl-who">Odette · Timothy · Rosalie · Zeline</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="wrap">
+    <p class="slot">Tot ziens, Uganda &#127482;&#127468;</p>
+    <p>Reisverslag familie Bergsma · 6–26 juli 2026 · De Parel van Afrika</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+<script>
+(function(){
+
+  if (typeof L === 'undefined') {
+    console.warn('Leaflet niet geladen — kaarten worden overgeslagen');
+    return;
+  }
+
+  var STOPS = [
+    {n:'Kampala',            lat:0.3476,  lng:32.5825, roos:true,  d:'6\u201311 jul',  l:'Bij Roos, Yuri & Zaja thuis'},
+    {n:'Fort Portal',        lat:0.6636,  lng:30.2733, roos:false, d:'11\u201314 jul', l:'Ndali Lodge'},
+    {n:'Queen Elizabeth NP', lat:-0.0500, lng:29.9500, roos:true,  d:'14\u201318 jul', l:'Katara Lodge + Embogo Lodge'},
+    {n:'Bwindi',             lat:-1.0366, lng:29.7035, roos:true,  d:'18\u201319 jul', l:'Agandi Lodge'},
+    {n:'Lake Bunyonyi',      lat:-1.2761, lng:29.9044, roos:true,  d:'19\u201323 jul', l:'Sharp Island Lodge + Birdnest Resort'},
+    {n:'Lake Mburo',         lat:-0.6128, lng:30.9452, roos:false, d:'23\u201324 jul', l:'Hyena Hill Lodge'},
+    {n:'Entebbe',            lat:0.0512,  lng:32.4637, roos:false, d:'24\u201326 jul', l:'Hotel Horizon'}
+  ];
+
+  // De gereden route (via OSRM, eenmalig opgehaald en vereenvoudigd), zodat
+  // bezoekers geen verbinding met een externe routeserver hoeven te maken.
+  var ROUTE = [
+    {roos:false, c:[[0.3476,32.5824],[0.3527,32.5699],[0.3432,32.537],[0.3093,32.5151],[0.3189,32.5105],[0.3326,32.493],[0.3199,32.4429],[0.3323,32.4024],[0.3322,32.3731],[0.345,32.3473],[0.353,32.2948],[0.3637,32.2784],[0.3749,32.2706],[0.384,32.2379],[0.3775,32.1529],[0.3956,32.1278],[0.3854,32.1037],[0.3869,32.0855],[0.3917,32.0819],[0.397,32.055],[0.4094,32.0346],[0.4157,31.978],[0.425,31.9661],[0.437,31.9246],[0.4297,31.8791],[0.4439,31.8554],[0.46,31.8124],[0.4546,31.7799],[0.4599,31.7491],[0.4481,31.7135],[0.4467,31.6918],[0.4752,31.6292],[0.4746,31.6125],[0.4837,31.5969],[0.4856,31.5792],[0.4937,31.5726],[0.5031,31.5535],[0.4962,31.5106],[0.5096,31.5041],[0.5158,31.4816],[0.5317,31.4634],[0.5492,31.4176],[0.5468,31.4006],[0.5553,31.3917],[0.5201,31.3272],[0.502,31.3127],[0.4988,31.3043],[0.5002,31.251],[0.488,31.2372],[0.4817,31.2093],[0.4961,31.1545],[0.4781,31.1191],[0.4862,31.065],[0.4809,31.0553],[0.487,31.0407],[0.4831,31.0281],[0.5101,30.9877],[0.5465,30.9071],[0.5584,30.8448],[0.556,30.8331],[0.564,30.8231],[0.5593,30.7815],[0.5816,30.7537],[0.5823,30.7355],[0.5972,30.7189],[0.5972,30.7107],[0.6079,30.7054],[0.601,30.6863],[0.6017,30.6684],[0.6218,30.6234],[0.6408,30.6071],[0.6414,30.5863],[0.6563,30.5541],[0.6546,30.533],[0.6597,30.5254],[0.6566,30.5075],[0.6736,30.4928],[0.6715,30.4783],[0.6781,30.4614],[0.6714,30.4391],[0.6444,30.4008],[0.643,30.3915],[0.6489,30.3846],[0.6436,30.3754],[0.6474,30.3652],[0.6397,30.3571],[0.6414,30.3432],[0.6321,30.3379],[0.6299,30.3312],[0.646,30.3199],[0.6501,30.3022],[0.6598,30.2917],[0.6571,30.2812],[0.6626,30.2803],[0.6652,30.2719],[0.6529,30.2747],[0.6244,30.2574],[0.6388,30.2322],[0.6123,30.213],[0.6002,30.2174],[0.5897,30.2119],[0.5733,30.1957],[0.5706,30.1852],[0.5644,30.1841],[0.5493,30.1663],[0.5341,30.1679],[0.5155,30.1817],[0.5004,30.1789],[0.4853,30.1899],[0.4679,30.1916],[0.4447,30.2037],[0.4301,30.2015],[0.4267,30.2095],[0.4147,30.2155],[0.3773,30.2158],[0.3332,30.1861],[0.2893,30.1781],[0.2745,30.1561],[0.2619,30.1478],[0.2593,30.1178],[0.1995,30.1107],[0.1846,30.0926],[0.1642,30.0798],[0.1394,30.0686],[0.1205,30.0673],[0.089,30.0438],[0.0657,30.0378],[0.0364,30.0218],[0.0122,30.0008],[-0.0164,30.002],[-0.0192,29.9911],[-0.0387,29.9813],[-0.0332,29.9738],[-0.0408,29.9723]]},
+    {roos:true,  c:[[-0.0408,29.9723],[-0.0332,29.974],[-0.0384,29.9795],[-0.0367,29.9838],[-0.0192,29.9911],[-0.0178,30.0009],[-0.0106,30.0024],[-0.0305,30.0066],[-0.1242,30.0478],[-0.1483,30.0662],[-0.1697,30.0262],[-0.1989,30.004],[-0.2317,29.9646],[-0.2525,29.9516],[-0.2773,29.9172],[-0.2949,29.9069],[-0.3147,29.8695],[-0.3604,29.8692],[-0.3843,29.8759],[-0.4253,29.8667],[-0.4365,29.8538],[-0.4564,29.8024],[-0.4715,29.7963],[-0.4933,29.7994],[-0.5063,29.7811],[-0.5397,29.7603],[-0.5561,29.7391],[-0.5799,29.7198],[-0.6452,29.6947],[-0.6786,29.6705],[-0.7078,29.6652],[-0.7244,29.6909],[-0.7353,29.6974],[-0.747,29.7002],[-0.7637,29.695],[-0.7764,29.6999],[-0.794,29.699],[-0.8102,29.7059],[-0.8154,29.6875],[-0.8114,29.6836],[-0.8134,29.6683],[-0.835,29.6437],[-0.8399,29.6398],[-0.8565,29.6385],[-0.8601,29.6425],[-0.8865,29.6365],[-0.8995,29.6399],[-0.9132,29.6505],[-0.9251,29.6512],[-0.9321,29.6585],[-0.9291,29.669],[-0.9372,29.6761],[-0.9538,29.6748],[-0.9725,29.6894],[-0.9885,29.6904],[-0.986,29.6966],[-0.9925,29.7007],[-0.9942,29.7124],[-1.0005,29.7148],[-1.0026,29.724],[-1.0041,29.7198],[-1.0028,29.7424],[-1.0161,29.7578],[-1.0249,29.7588],[-1.0294,29.7658],[-1.04,29.7625],[-1.0486,29.7779],[-1.0621,29.7819],[-1.0607,29.7873],[-1.0658,29.787],[-1.0692,29.7999],[-1.0804,29.8106],[-1.0869,29.8076],[-1.09,29.8106],[-1.0949,29.8032],[-1.0972,29.8131],[-1.1034,29.8059],[-1.1138,29.8109],[-1.094,29.8429],[-1.1107,29.8694],[-1.123,29.877],[-1.1246,29.8708],[-1.1424,29.8681],[-1.1423,29.8589],[-1.1495,29.8517],[-1.1712,29.8413],[-1.1949,29.8454],[-1.1961,29.8326],[-1.2005,29.8376],[-1.2126,29.8313],[-1.2089,29.8216],[-1.215,29.8217],[-1.2179,29.827],[-1.2205,29.8203],[-1.2308,29.8265],[-1.2375,29.8245],[-1.2477,29.8354],[-1.2494,29.8463],[-1.2794,29.8604],[-1.277,29.8691],[-1.2851,29.8729],[-1.2816,29.8847],[-1.2846,29.8877],[-1.2758,29.8976]]},
+    {roos:false, c:[[-1.2758,29.8976],[-1.2846,29.8878],[-1.2839,29.8701],[-1.2751,29.8681],[-1.2759,29.8591],[-1.2493,29.8462],[-1.2477,29.8354],[-1.2375,29.8245],[-1.2308,29.8265],[-1.2205,29.8203],[-1.2179,29.827],[-1.215,29.8217],[-1.2089,29.8216],[-1.2126,29.8313],[-1.2005,29.8376],[-1.1961,29.8326],[-1.1949,29.8454],[-1.1713,29.8413],[-1.1495,29.8517],[-1.1423,29.8589],[-1.1424,29.8681],[-1.1243,29.8711],[-1.1256,29.8877],[-1.1171,29.8951],[-1.1559,29.9247],[-1.1686,29.9288],[-1.1973,29.9275],[-1.2016,29.9336],[-1.2115,29.9356],[-1.2234,29.9544],[-1.2434,29.9708],[-1.2483,29.9847],[-1.2594,29.9923],[-1.255,30.0029],[-1.2623,30.0303],[-1.248,30.0271],[-1.2456,30.0348],[-1.25,30.0391],[-1.2502,30.0507],[-1.2409,30.0555],[-1.2342,30.0505],[-1.2275,30.0585],[-1.2301,30.0619],[-1.2338,30.057],[-1.2363,30.0671],[-1.2568,30.0772],[-1.2405,30.0958],[-1.2347,30.1117],[-1.2036,30.1244],[-1.1883,30.1233],[-1.1837,30.1139],[-1.1758,30.1125],[-1.1713,30.1163],[-1.1712,30.1287],[-1.1648,30.1334],[-1.1418,30.1242],[-1.145,30.141],[-1.1231,30.1779],[-1.0107,30.1893],[-0.9546,30.2107],[-0.934,30.2134],[-0.8917,30.2633],[-0.8424,30.2748],[-0.805,30.2639],[-0.789,30.2675],[-0.7877,30.2812],[-0.7528,30.3165],[-0.7562,30.3267],[-0.7508,30.3394],[-0.7312,30.3507],[-0.7198,30.377],[-0.704,30.3814],[-0.6795,30.4015],[-0.6554,30.4809],[-0.6481,30.4883],[-0.6354,30.5204],[-0.635,30.5376],[-0.643,30.5615],[-0.6422,30.5878],[-0.6202,30.6102],[-0.5928,30.6248],[-0.5815,30.6575],[-0.5832,30.6813],[-0.5705,30.6973],[-0.5499,30.7141],[-0.531,30.7191],[-0.5108,30.7726],[-0.5091,30.8395],[-0.485,30.8649],[-0.5034,30.8931],[-0.4982,30.9069],[-0.5087,30.906],[-0.5357,30.9161],[-0.5678,30.9169],[-0.5848,30.9244],[-0.5947,30.9218],[-0.5978,30.9301],[-0.6063,30.9321],[-0.5978,30.9301],[-0.5947,30.9218],[-0.5848,30.9244],[-0.5678,30.9169],[-0.5357,30.9161],[-0.5087,30.906],[-0.4978,30.9067],[-0.4928,30.9329],[-0.4946,30.9778],[-0.4894,30.9946],[-0.4715,31.0155],[-0.4661,31.034],[-0.4142,31.1268],[-0.4034,31.16],[-0.3829,31.1989],[-0.384,31.2249],[-0.3773,31.252],[-0.3686,31.2619],[-0.3918,31.3278],[-0.3933,31.3486],[-0.4039,31.3632],[-0.4036,31.3796],[-0.3961,31.4096],[-0.392,31.4582],[-0.382,31.4783],[-0.3779,31.5095],[-0.3663,31.5386],[-0.3532,31.5516],[-0.3527,31.5861],[-0.3465,31.5931],[-0.3484,31.6072],[-0.3383,31.6487],[-0.3365,31.7195],[-0.3142,31.7442],[-0.3055,31.7773],[-0.2844,31.7867],[-0.2716,31.8112],[-0.2326,31.8356],[-0.1842,31.8491],[-0.1485,31.8746],[-0.1176,31.9365],[-0.0441,31.9942],[-0.0214,32.0248],[0.055,32.092],[0.108,32.1747],[0.1185,32.1828],[0.1392,32.2199],[0.161,32.2317],[0.1739,32.2739],[0.2018,32.3015],[0.2277,32.3433],[0.2408,32.3508],[0.2442,32.3805],[0.2579,32.4043],[0.2609,32.4217],[0.2842,32.454],[0.2716,32.4642],[0.279,32.4702],[0.2787,32.481],[0.3,32.5128],[0.2859,32.5114],[0.2706,32.5202],[0.2316,32.5238],[0.2161,32.5312],[0.154,32.5113],[0.1067,32.5128],[0.0922,32.4991],[0.0862,32.4845],[0.0575,32.4728],[0.0555,32.4642],[0.0512,32.4637]]}
+  ];
+
+  // Esri Light Gray: werkt zonder API-sleutel (CARTO vraagt er sinds 2026 een).
+  // Een ondergrond zonder namen plus een aparte laag met plaatsnamen erover.
+  var TILE_BASE   = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+  var TILE_LABELS = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+  var ATTRIB = 'Tiles &copy; <a href="https://www.esri.com">Esri</a>, HERE, Garmin, &copy; OpenStreetMap';
+  function kaartlagen(map, opties) {
+    L.tileLayer(TILE_BASE, opties).addTo(map);
+    L.tileLayer(TILE_LABELS, {maxZoom: opties.maxZoom}).addTo(map);
+  }
+
+  function numIcon(n, color) {
+    return L.divIcon({
+      html: '<div style="width:30px;height:30px;border-radius:50%;background:'+color+';border:3px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;font-weight:700;color:#fff">'+n+'</div>',
+      iconSize:[30,30], iconAnchor:[15,15], className:''
+    });
+  }
+
+  function buildOverview(segs) {
+    var el = document.getElementById('kaart-overzicht');
+    if (!el) return;
+    var map = L.map(el, {scrollWheelZoom:false});
+    kaartlagen(map, {attribution:ATTRIB, maxZoom:14});
+    var allCoords = [];
+    segs.forEach(function(seg) {
+      allCoords = allCoords.concat(seg.c);
+      L.polyline(seg.c, {color:seg.roos?'#7A5BA6':'#1E5C42', weight:5, opacity:0.9, lineJoin:'round', lineCap:'round'}).addTo(map);
+    });
+    var sectionIds = ['kampala','fortportal','queenelizabeth','bwindi','bunyonyi','mburo','entebbe'];
+    STOPS.forEach(function(s, i) {
+      var col = s.roos ? '#7A5BA6' : '#1E5C42';
+      L.marker([s.lat, s.lng], {icon: numIcon(i+1, col)}).addTo(map)
+        .bindPopup('<b>'+(i+1)+'. '+s.n+'</b><br><small style="color:#666">'+s.d+' &middot; '+s.l+'</small>')
+        .on('click', function() {
+          var el = document.getElementById(sectionIds[i]);
+          if (el) el.scrollIntoView({behavior:'smooth'});
+        });
+    });
+    map.fitBounds(L.latLngBounds(allCoords), {padding:[28,28], maxZoom:7});
+  }
+
+  function initOverview() {
+    buildOverview(ROUTE);
+  }
+
+  function initChapterMap(id, stopIdx) {
+    var el = document.getElementById(id);
+    if (!el || el._leaflet_id) return;
+    var current = STOPS[stopIdx];
+    var col = current.roos ? '#7A5BA6' : '#1E5C42';
+    var map = L.map(el, {scrollWheelZoom:false, zoomControl:false, dragging:false, attributionControl:false});
+    kaartlagen(map, {maxZoom:12});
+
+    var allCoords = STOPS.map(function(s){return [s.lat,s.lng];});
+
+    // Route ahead: lichte gestippelde lijn
+    L.polyline(allCoords, {color:'#d0d8d0', weight:2, dashArray:'5,4'}).addTo(map);
+
+    // Afgelegde route: segment per segment ingekleurd
+    for (var k = 0; k < stopIdx; k++) {
+      var segCol = (STOPS[k].roos && STOPS[k+1].roos) ? '#7A5BA6' : '#1E5C42';
+      L.polyline([[STOPS[k].lat,STOPS[k].lng],[STOPS[k+1].lat,STOPS[k+1].lng]], {
+        color:segCol, weight:3.5, opacity:0.65
+      }).addTo(map);
+    }
+
+    // Bezochte stops: kleine gevulde cirkels
+    for (var i = 0; i < stopIdx; i++) {
+      L.circleMarker([STOPS[i].lat,STOPS[i].lng], {
+        radius:5, fillColor:STOPS[i].roos?'#7A5BA6':'#1E5C42',
+        color:'#fff', weight:1.5, fillOpacity:0.65
+      }).addTo(map);
+    }
+
+    // Toekomstige stops: lege cirkels
+    for (var j = stopIdx+1; j < STOPS.length; j++) {
+      L.circleMarker([STOPS[j].lat,STOPS[j].lng], {
+        radius:4, fillColor:'#fff',
+        color:'#c0c8c0', weight:1.5, fillOpacity:1
+      }).addTo(map);
+    }
+
+    // Omcirkeling: zachte stippelcirkel rondom huidige locatie
+    L.circle([current.lat,current.lng], {
+      radius:22000, color:col, weight:1.5,
+      fill:false, opacity:0.35, dashArray:'5,5'
+    }).addTo(map);
+
+    // Huidige locatie: pulserende marker met nummer
+    var pulseIcon = L.divIcon({
+      html: '<div style="position:relative;width:50px;height:50px;">'
+          + '<div style="position:absolute;top:50%;left:50%;width:50px;height:50px;border-radius:50%;border:2px solid '+col+';animation:pulse-ring 2s ease-out infinite;"></div>'
+          + '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:'+col+';border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:700;color:white;">'+(stopIdx+1)+'</div>'
+          + '</div>',
+      iconSize:[50,50], iconAnchor:[25,25], className:''
+    });
+    L.marker([current.lat,current.lng], {icon:pulseIcon}).addTo(map)
+      .bindPopup('<b>'+current.n+'</b><br><small style="color:#666">'+current.d+'</small>');
+
+    map.fitBounds(L.latLngBounds(allCoords), {padding:[22,22]});
+  }
+
+  var chapterConf = [
+    {id:'chaptermap-1', stopIdx:0},
+    {id:'chaptermap-2', stopIdx:1},
+    {id:'chaptermap-3', stopIdx:2},
+    {id:'chaptermap-4', stopIdx:3},
+    {id:'chaptermap-5', stopIdx:4},
+    {id:'chaptermap-6', stopIdx:5},
+    {id:'chaptermap-7', stopIdx:6}
+  ];
+
+  if ('IntersectionObserver' in window) {
+    var chapObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var conf = null;
+          for (var i=0; i<chapterConf.length; i++) { if (chapterConf[i].id===e.target.id) {conf=chapterConf[i];break;} }
+          if (conf) { initChapterMap(conf.id, conf.stopIdx); chapObs.unobserve(e.target); }
+        }
+      });
+    }, {threshold:0.05, rootMargin:'100px 0px'});
+    chapterConf.forEach(function(m) {
+      var el = document.getElementById(m.id);
+      if (el) chapObs.observe(el);
+    });
+  } else {
+    chapterConf.forEach(function(m){ initChapterMap(m.id, m.stopIdx); });
+  }
+
+  var fades = document.querySelectorAll('.fade');
+  if ('IntersectionObserver' in window) {
+    var fadeObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); fadeObs.unobserve(e.target); }
+      });
+    }, {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+    fades.forEach(function(el){ fadeObs.observe(el); });
+  } else {
+    fades.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  window.addEventListener('load', initOverview);
+
+})();
+</script>
+
+
+<button class="back-to-top" id="back-to-top" aria-label="Terug naar boven">↑</button>
+
+<script>
+// ── Sticky nav, back-to-top & dagboek — onafhankelijk van Leaflet ──
+(function() {
+  var stickyNav = document.getElementById('sticky-nav');
+  var btt       = document.getElementById('back-to-top');
+  var navLinks  = document.querySelectorAll('.nav-link');
+  var sections  = ['kampala','fortportal','queenelizabeth','bwindi','bunyonyi','mburo','entebbe']
+                    .map(function(id){ return document.getElementById(id); });
+  var heroEl    = document.querySelector('.hero');
+
+  window.addEventListener('scroll', function() {
+    var sy = window.scrollY;
+    var threshold = 50;
+    if (sy > threshold) {
+      stickyNav.classList.add('zichtbaar');
+      btt.classList.add('zichtbaar');
+    } else {
+      stickyNav.classList.remove('zichtbaar');
+      btt.classList.remove('zichtbaar');
+    }
+    var current = '';
+    sections.forEach(function(s) {
+      if (s && s.getBoundingClientRect().top < 100) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+      a.classList.toggle('actief', a.getAttribute('href') === '#' + current);
+    });
+  }, {passive: true});
+
+  btt.addEventListener('click', function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+
+  document.querySelectorAll('.dagboek-sectie').forEach(function(el) {
+    el.classList.add('dagboek-gevuld');
+  });
+})();
+</script>
+
+<script>
+/* Engels via Google Translate. Het script van Google wordt alleen geladen als
+   iemand Engels kiest, zodat gewone bezoekers geen verbinding met Google maken.
+   Elk bezoek begint in het Nederlands: een achtergebleven googtrans-cookie
+   wordt gewist, want daarmee weigert Google bij het opstarten te vertalen. */
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'nl',
+    includedLanguages: 'en',
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+
+(function() {
+  var knoppen = document.querySelectorAll('.lang-btn');
+  var isEN = false;
+  var geladen = false;
+
+  function wisKeuze() {
+    ['', ';domain=' + location.hostname, ';domain=.' + location.hostname].forEach(function(d) {
+      document.cookie = 'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT' + d;
+    });
+  }
+  wisKeuze();
+
+  function laadGoogle() {
+    if (geladen) return;
+    geladen = true;
+    var script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.body.appendChild(script);
+  }
+
+  // Vlak na het laden negeert Google een keuze soms. Probeer het daarom
+  // opnieuw tot er vertaalde tekst staat (Google zet die in <font>-blokjes).
+  function vertaal(pogingen) {
+    var select = document.querySelector('.goog-te-combo');
+    if (!select || select.options.length < 2) {
+      if (pogingen > 0) setTimeout(function() { vertaal(pogingen - 1); }, 300);
+      return;
+    }
+    // Eerst terug naar de lege keuze: dezelfde keuze nog eens doorgeven negeert Google.
+    select.value = '';
+    select.dispatchEvent(new Event('change'));
+    setTimeout(function() {
+      select.value = 'en';
+      select.dispatchEvent(new Event('change'));
+    }, 300);
+    setTimeout(function() {
+      if (isEN && !document.querySelector('font[style]') && pogingen > 0) vertaal(pogingen - 1);
+    }, 2500);
+  }
+
+  function zetKnop() {
+    knoppen.forEach(function(btn) {
+      btn.innerHTML = isEN ? '🇳🇱 NL' : '🇬🇧 EN';
+      btn.setAttribute('aria-label', isEN ? 'Wissel naar Nederlands' : 'Switch to English');
+    });
+  }
+
+  function wissel() {
+    if (!isEN) {
+      isEN = true;
+      zetKnop();
+      laadGoogle();
+      vertaal(30);
+    } else {
+      // Terug naar het origineel: de keuze wissen en de pagina opnieuw laden.
+      wisKeuze();
+      location.reload();
+    }
+  }
+  knoppen.forEach(function(btn) { btn.addEventListener('click', wissel); });
+})();
+</script>
+
+<script>
+/* Foto groot bekijken: klik op een foto in een galerij. Pijltjestoetsen of
+   vegen voor de vorige/volgende foto van dezelfde bestemming, Esc sluit. */
+(function() {
+  var lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.hidden = true;
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-modal', 'true');
+  lb.setAttribute('aria-label', 'Foto vergroot');
+  lb.innerHTML = '<img alt=""><button class="lb-sluit" aria-label="Sluiten">&times;</button>' +
+    '<button class="lb-vorige" aria-label="Vorige foto">&lsaquo;</button>' +
+    '<button class="lb-volgende" aria-label="Volgende foto">&rsaquo;</button><p class="lb-tekst"></p>';
+  document.body.appendChild(lb);
+  var groot = lb.querySelector('img'), tekst = lb.querySelector('.lb-tekst');
+  var reeks = [], nu = 0, terug = null;
+
+  function toon(i) {
+    nu = (i + reeks.length) % reeks.length;
+    var img = reeks[nu], onder = img.parentNode.querySelector('.foto-cap');
+    groot.src = img.currentSrc || img.src;
+    groot.alt = img.alt;
+    tekst.textContent = (onder ? onder.textContent + ' · ' : '') + (nu + 1) + ' / ' + reeks.length;
+  }
+  function open(img) {
+    reeks = [].slice.call(img.closest('.fotos-sectie').querySelectorAll('.foto-rij img'));
+    terug = img;
+    toon(reeks.indexOf(img));
+    lb.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    lb.querySelector('.lb-sluit').focus();
+  }
+  function sluit() {
+    lb.hidden = true;
+    groot.removeAttribute('src');
+    document.documentElement.style.overflow = '';
+    if (terug) terug.focus();
+  }
+
+  document.querySelectorAll('.foto-rij img').forEach(function(img) {
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+  });
+  document.addEventListener('click', function(e) {
+    var img = e.target.closest && e.target.closest('.foto-rij img');
+    if (img) open(img);
+  });
+  document.addEventListener('keydown', function(e) {
+    if (lb.hidden) {
+      if (e.key === 'Enter' && e.target.matches && e.target.matches('.foto-rij img')) open(e.target);
+      return;
+    }
+    if (e.key === 'Escape') sluit();
+    else if (e.key === 'ArrowLeft') toon(nu - 1);
+    else if (e.key === 'ArrowRight') toon(nu + 1);
+  });
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb || e.target === groot || e.target.classList.contains('lb-sluit')) sluit();
+    else if (e.target.classList.contains('lb-vorige')) toon(nu - 1);
+    else if (e.target.classList.contains('lb-volgende')) toon(nu + 1);
+  });
+  var startX = null;
+  lb.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive: true});
+  lb.addEventListener('touchend', function(e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 50) toon(dx < 0 ? nu + 1 : nu - 1);
+  });
+})();
+</script>
+
+<script>
+/* Vangnet voor de fotorijen: neem de echte verhouding van elke foto over,
+   zodat er ook bij een afwijkend bestand nooit iets wordt afgesneden. */
+(function() {
+  document.querySelectorAll('.foto-rij .foto-slot img').forEach(function(img) {
+    function zetVerhouding() {
+      if (img.naturalWidth && img.naturalHeight) {
+        img.parentNode.style.setProperty('--r', (img.naturalWidth / img.naturalHeight).toFixed(4));
+      }
+    }
+    if (img.complete) zetVerhouding(); else img.addEventListener('load', zetVerhouding);
+  });
+  document.querySelectorAll('.video-slot video').forEach(function(video) {
+    function zetStaand() {
+      if (video.videoHeight > video.videoWidth) video.parentNode.classList.add('staand');
+    }
+    if (video.readyState >= 1) zetStaand(); else video.addEventListener('loadedmetadata', zetStaand);
+  });
+})();
+</script>
+
+</body>
+</html>
